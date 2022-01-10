@@ -5,8 +5,8 @@
  * @module CompassEdu
  */
 
-const CompassEdu        = require("./classes/CompassEdu")
-const CompassEduRequest = require("./classes/CompassEduRequest")
+const CompassEdu        = require("./src/CompassEdu")
+const CompassEduRequest = require("./src/CompassEduRequest")
 
 // Expose root command
 module.exports = CompassEdu;
