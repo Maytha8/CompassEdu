@@ -24,15 +24,25 @@ class CompassEduURL extends URL {
   #authKeyKey = null;
 
   /**
+   * Set the authentication keys.
+   * @param {string} keyKey - The key of the authentication key.
+   * @param {string} key    - The authentication key.
+   */
+  setAuth(keyKey, key) {
+    this.#authKeyKey = keyKey;
+    this.#authKey = key;
+  }
+
+  /**
    * Create a CompassEduURL object
    * @param {string}     input  - The absolute or relative input URL to parse. If `input` is relative, then `base` is required. If `input` is absolute, the `base` is ignored.
    * @param {string|URL} [base] - The base URL to resolve against if the `input` is not absolute.
-   * @param {string}     keykey - The key of the authentication key used for requests.
+   * @param {string}     keyKey - The key of the authentication key used for requests.
    * @param {string}     key    - The authentication key used for requests.
    */
-  constructor(input, base, keykey, key) {
+  constructor(input, base, keyKey, key) {
     super(input, base);
-    this.#authKeyKey = keykey;
+    this.#authKeyKey = keyKey;
     this.#authKey = key;
   }
 
@@ -43,8 +53,6 @@ class CompassEduURL extends URL {
    */
   /**
    * Make request using URL
-   * @param {string} keykey                          - The key of the authentication key
-   * @param {string} key                             - The authentication key
    * @param {string}          method                 - The request method
    * @param {CompassEduURL~requestCallback} callback - The callback that handles the response
    * @param {object}          [data]                 - Payload to send with request
@@ -59,7 +67,7 @@ class CompassEduURL extends URL {
    *   });
    * });
    */
-  request(keykey, key, method, callback, data, urlEncoded = false) {
+  request(method, callback, data, urlEncoded = false) {
     if (data) {
       // Prepare data
       if (urlEncoded) {
@@ -67,12 +75,15 @@ class CompassEduURL extends URL {
       } else {
         const payload = JSON.stringify(data);
       }
+      // Prepare headers
+      var headers = {};
+      headers['Content-Type'] = (urlEncoded ? 'application/x-www-form-urlencoded' : 'application/json');
+      headers['Content-Length'] = payload.length;
+      if (this.#authKey !== null && this.#authKeyKey !== null) {
+        
+      }
       // Make request
-      const req = https.request(this.href, {method: method, headers: {
-        'Content-Type': (urlEncoded ? 'application/x-www-form-urlencoded' : 'application/json'),
-        'Content-Length': payload.length,
-        'Cookie': keykey + '=' + key
-      }}, callback);
+      const req = https.request(this.href, {method: method, headers: headers}, callback);
       // Write data
       req.write(payload);
     } else {
