@@ -43,10 +43,12 @@ class CompassEduURL extends URL {
    */
   /**
    * Make request using URL
-   * @param {string}          method            - The request method
-   * @param {CompassEduURL~requestCallback} callback          - The callback that handles the response
-   * @param {object}          [data]            - Payload to send with request
-   * @param {boolean}         [urlEncode=false] - Whether to url-encode the payload or send it in json format
+   * @param {string} keykey                          - The key of the authentication key
+   * @param {string} key                             - The authentication key
+   * @param {string}          method                 - The request method
+   * @param {CompassEduURL~requestCallback} callback - The callback that handles the response
+   * @param {object}          [data]                 - Payload to send with request
+   * @param {boolean}         [urlEncode=false]      - Whether to url-encode the payload or send it in json format
    * @example
    * // Make a request using this url
    * myUrl.request(myKeyKey, myKey, 'post', function(res) {
@@ -86,6 +88,8 @@ class CompassEduURL extends URL {
 
   /**
    * Validate the arguments passed to request().
+   * @param {*} keykey
+   * @param {*} key
    * @param {*} method
    * @param {*} callback
    * @param {*} data
