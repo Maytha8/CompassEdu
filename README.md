@@ -1,8 +1,18 @@
 # CompassEdu
-**Currently under development!**
+![GitHub package.json version](https://img.shields.io/github/package-json/v/Maytha8/CompassEdu?style=flat-square)
+![npm](https://img.shields.io/npm/v/CompassEdu?style=flat-square)
+
+**Currently under development!**<br>
 A package for interacting with Compass Education.
 
 ## Installation
+
+The latest stable release is on npm, so you can use:
 ```sh
-npm i https://github.com/CompassEdu
+npm install compassedu
+```
+
+To install straight from the development repository, use the following:
+```sh
+npm install https://github.com/Maytha8/CompassEdu
 ```
