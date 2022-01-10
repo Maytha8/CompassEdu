@@ -91,29 +91,35 @@ class CompassEdu {
   }
 
   /**
+   * getAllLocations() callback function
+   * @callback CompassEdu~getAllLocationsCallback
+   * @param {string} data
+   */
+  /**
    * Get all locations
+   * @param {CompassEdu~getAllLocationsCallback} cb - Callback function
    * @param {int} [limit=25]
    * @param {int} [page=1]
    * @param {int} [start=0]
    */
-  getAllLocations(limit = 25, page = 1, start = 0) {
+  getAllLocations(cb, limit = 25, page = 1, start = 0) {
     var r;
     const url = new CompassEduURL("/Services/ReferenceDataCache.svc/GetAllLocations?sessionstate=readonly", this.#baseURL);
+    url.setAuth(this.#authKeyKey, this.#authKey);
     url.searchParams.append('limit', limit);
     url.searchParams.append('page', page);
     url.searchParams.append('start', start);
     url.request('get', function(res) {
       if (res.statusCode == 200) {
         res.on("data", function(d) {
-          r = d;
+          cb(d);
         });
       } else {
         this.error = new Error();
-        r = this.error;
+        cb();
       }
     });
   }
-
 }
 
 module.exports.CompassEdu = CompassEdu;
