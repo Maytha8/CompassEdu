@@ -45,9 +45,9 @@ class CompassEduURL extends URL {
    *   });
    * });
    */
-  request(method, callback, data, urlEncoded = false) {
+  request(key, method, callback, data, urlEncoded = false) {
     // Quickly validate data
-    if (!this.#validateRequestArgs(method, callback, data, urlEncoded)) {
+    if (!this.#validateRequestArgs(key, method, callback, data, urlEncoded)) {
       return;
     }
     if (data) {
@@ -80,7 +80,11 @@ class CompassEduURL extends URL {
    * @param {*} urlEncode
    * @private
    */
-  #validateRequestArgs(method, callback, data, urlEncoded) {
+  #validateRequestArgs(key, method, callback, data, urlEncoded) {
+    // Validate key
+    if (typeof key !== "string") {
+      return false;
+    }
     // Validate method
     if (typeof method !== "string" || !["get", "post"].includes(method.toLowerCase())) {
       return false;
