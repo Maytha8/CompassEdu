@@ -20,3 +20,10 @@ To install straight from the development repository, use the following:
 ```sh
 npm install https://github.com/Maytha8/CompassEdu
 ```
+
+If you're contributing to this project, then use this:
+```sh
+git clone https://github.com/Maytha8/CompassEdu.git
+cd CompassEdu
+npm install
+```
