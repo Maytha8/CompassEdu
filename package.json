@@ -23,5 +23,8 @@
   "devDependencies": {
     "better-docs": "^2.3.2",
     "jsdoc": "^3.6.7"
+  },
+  "dependencies": {
+    "axios": "^0.24.0"
   }
 }
