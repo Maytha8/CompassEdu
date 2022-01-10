@@ -68,6 +68,7 @@ class CompassEduURL extends URL {
    * });
    */
   request(method, callback, data, urlEncoded = false) {
+    var req;
     // Check method
     if (!['get', 'post'].includes(method.toLowerCase())) {
       throw new Error("Request method must be either 'get' or 'post'.");
@@ -75,10 +76,11 @@ class CompassEduURL extends URL {
     }
     if (data) {
       // Prepare data
+      var payload;
       if (urlEncoded) {
-        const payload = URLSearchParams(data).toString();
+        payload = (new URLSearchParams(data)).toString();
       } else {
-        const payload = JSON.stringify(data);
+        payload = JSON.stringify(data);
       }
       // Prepare options
       var options = {};
@@ -88,10 +90,10 @@ class CompassEduURL extends URL {
       options.headers['Content-Type'] = (urlEncoded ? 'application/x-www-form-urlencoded' : 'application/json');
       options.headers['Content-Length'] = payload.length;
       if (this.#authKey !== null && this.#authKeyKey !== null) {
-        options.headers['Cookie'] = this.#authKeykey + "=" + this.#authKey;
+        options.headers['Cookie'] = this.#authKeyKey + "=" + this.#authKey;
       }
       // Make request
-      const req = https.request(this.href, options, callback);
+      req = https.request(this.href, options, callback);
       // Write data
       req.write(payload);
     } else {
@@ -101,10 +103,10 @@ class CompassEduURL extends URL {
       // Prepare headers
       if (this.#authKey !== null && this.#authKeyKey !== null) {
         options.headers = {};
-        options.headers['Cookie'] = this.#authKeykey + "=" + this.#authKey;
+        options.headers['Cookie'] = this.#authKeyKey + "=" + this.#authKey;
       }
       // Make request
-      const req = https.request(this.href, options, callback)
+      req = https.request(this.href, options, callback);
     }
     // Return request
     return req;

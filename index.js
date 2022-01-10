@@ -5,12 +5,12 @@
  * @module CompassEdu
  */
 
-const CompassEdu        = require("./src/CompassEdu")
-const CompassEduRequest = require("./src/CompassEduRequest")
+const { CompassEdu }    = require("./src/CompassEdu")
+const { CompassEduURL } = require("./src/CompassEduURL")
 
-// Expose root command
+// Expose root class
 module.exports = CompassEdu;
 
 // Expose individual classes
-module.exports.CompassEdu        = CompassEdu;
-module.exports.CompassEduRequest = CompassEduRequest;
+module.exports.CompassEdu    = CompassEdu;
+module.exports.CompassEduURL = CompassEduURL;

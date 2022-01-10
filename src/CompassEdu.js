@@ -44,65 +44,87 @@ class CompassEdu {
   }
 
   /**
-   * Whether you are logged in and authorized.
+   * Whether the object is logged in and authorized.
    * @type {boolean}
    * @private
    */
   #authValid = false;
 
   /**
-   * Whether it is authorized or not.
-   * @return {boolean} - Whether it is authorized or not.
+   * The username that the object is logged in as.
+   * @type {string}
+   * @private
+   */
+  #authUsername = "";
+
+  /**
+   * The password that was used to authenticate the object with Compass Edu.
+   * @type {string}
+   * @private
+   */
+  #authPassword = "";
+
+  /**
+   * Get the username that the object is logged in as.
+   * @retun {string} - The username that the object is logged in as.
+   */
+  getUsername() {
+    return this.#authUsername;
+  }
+
+  /**
+   * Get whether the object logged in and authorized.
+   * @return {boolean} - Whether the object is authorized or not.
    */
   getAuthorized() {
     return this.#authValid;
   }
 
   /**
-   * Create a CompassEdu object and login.
+   * Create a CompassEdu object and login. This is a "thenable".
    * @param {string} url - The base URL for the school-specific Compass website without the trailing slash.
    * @param {string} username - The username of the user to login as.
    * @param {string} password - The plaintext password of the user to login as.
    */
   constructor(url, username, password) {
-    const req = new CompassEduURL("/login.aspx?sessionstate=disabled", url);
-    req.request('post', function(res) {
+    this.#baseURL = url;
+  }
+
+  then(resolve, reject) {
+    const reqURL = new CompassEduURL("/login.aspx?sessionstate=disabled", url);
+    const req = reqURL.request('post', function(res) {
+      console.log(res.headers);
       if (Object.keys(res.headers["set-cookie"]).filter((cookie) => cookie.startsWith("username=")).length > 0 && res.statusCode == 302) {
         var cpssidKey = Object.keys(res.headers["set-cookie"]).filter((cookie) => cookie.startsWith("cpssid_"));
         if (cpssidKey.length > 0) {
           this.#authKeyKey = cpssidKey;
           this.#authKey = res.headers["set-cookie"][cpssidKey];
-          this.#baseURL = url;
           this.#authValid = true;
+          resolve();
         } else {
-          error = new Error("Invalid credentials");
+          reject(new Error("Invalid credentials"));
         }
       } else {
-        error = new Error("Invalid credentials");
+        reject(new Error("Invalid credentials"));
       }
     }, {
+      '__EVENTTARGET': 'button1',
       username: username,
       password: password
     }, true);
     req.on('error', function(e) {
-      error = e;
+      reject(e);
     });
     req.end();
   }
 
   /**
-   * getAllLocations() callback function
-   * @callback CompassEdu~getAllLocationsCallback
-   * @param {string} data
-   */
-  /**
    * Get all locations
-   * @param {CompassEdu~getAllLocationsCallback} cb - Callback function
    * @param {int} [limit=25]
    * @param {int} [page=1]
    * @param {int} [start=0]
    */
-  getAllLocations(cb, limit = 25, page = 1, start = 0) {
+  async getAllLocations(limit = 25, page = 1, start = 0) {
     var r;
     const url = new CompassEduURL("/Services/ReferenceDataCache.svc/GetAllLocations?sessionstate=readonly", this.#baseURL);
     url.setAuth(this.#authKeyKey, this.#authKey);
@@ -112,7 +134,7 @@ class CompassEdu {
     url.request('get', function(res) {
       if (res.statusCode == 200) {
         res.on("data", function(d) {
-          cb(d);
+          
         });
       } else {
         this.error = new Error();
