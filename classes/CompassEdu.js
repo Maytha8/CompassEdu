@@ -89,22 +89,21 @@ class CompassEdu {
    * @param {int} [start=0]
    */
   getAllLocations(limit = 25, page = 1, start = 0) {
-    const url = new URL(this.#baseURL + "/Services/ReferenceDataCache.svc/GetAllLocations?sessionstate=readonly");
+    var r;
+    const url = new CompassEduURL("/Services/ReferenceDataCache.svc/GetAllLocations?sessionstate=readonly", this.#baseURL);
     url.searchParams.append('limit', limit);
     url.searchParams.append('page', page);
     url.searchParams.append('start', start);
-    https.request(url.toString(), {
-      method: 'get'
-    }, function(res) {
+    url.request('get', function(res) {
       if (res.statusCode == 200) {
         res.on("data", function(d) {
-
+          r = d;
         });
       } else {
-        error = new Error();
-        return error;
+        this.error = new Error();
+        r = this.error;
       }
-    })
+    });
   }
 
 }
