@@ -1,6 +1,6 @@
 # CompassEdu
 **Currently under development!**
-An API to communicate with Compass Education.
+A package for interacting with Compass Education.
 
 ## Installation
 ```sh
