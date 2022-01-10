@@ -58,35 +58,6 @@ class CompassEdu {
    * @param {string} password - The plaintext password of the user to login as.
    */
   constructor(url, username, password) {
-    // // Prepare request data
-    // const data = querystring.stringify({
-    //   "__EVENTTARGET": 'button1',
-    //   username: username,
-    //   password: password
-    // });
-    // // POST request to login page using username and password.
-    // https.request(url + "/login.aspx?sessionstate=disabled", {
-    //   method: "post",
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded',
-    //     'Content-Length': data.length
-    //   }
-    // }, function(res) {
-    //   if (res.headers["set-cookie"].filter((cookie) => cookie.startsWith("username=")).length > 0 && res.statusCode == 302) {
-    //     var cpssid = res.headers["set-cookie"].filter((cookie) => cookie.startsWith("cpssid_"));
-    //     if (cpssid.length > 0) {
-    //       this.#authKey = cpssid[0];
-    //       this.#baseUrl = url;
-    //       this.#authValid = true;
-    //     } else {
-    //       error = new Error("Invalid credentials");
-    //     }
-    //   } else {
-    //     error = new Error("Invalid credentials");
-    //   }
-    // }).on('error', function(e) {
-    //   error = e;
-    // });
     const req = new CompassEduURL("/login.aspx?sessionstate=disabled", url);
     req.request('post', function(res) {
       if (res.headers["set-cookie"].filter((cookie) => cookie.startsWith("username=")).length > 0 && res.statusCode == 302) {
