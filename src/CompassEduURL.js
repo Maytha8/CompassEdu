@@ -60,10 +60,6 @@ class CompassEduURL extends URL {
    * });
    */
   request(keykey, key, method, callback, data, urlEncoded = false) {
-    // Quickly validate data
-    if (!this.#validateRequestArgs(keykey, key, method, callback, data, urlEncoded)) {
-      return;
-    }
     if (data) {
       // Prepare data
       if (urlEncoded) {
@@ -74,7 +70,8 @@ class CompassEduURL extends URL {
       // Make request
       const req = https.request(this.href, {method: method, headers: {
         'Content-Type': (urlEncoded ? 'application/x-www-form-urlencoded' : 'application/json'),
-        'Content-Length': payload.length
+        'Content-Length': payload.length,
+        'Cookie': keykey + '=' + key
       }}, callback);
       // Write data
       req.write(payload);
@@ -84,45 +81,6 @@ class CompassEduURL extends URL {
     }
     // Return request
     return req;
-  }
-
-  /**
-   * Validate the arguments passed to request().
-   * @param {*} keykey
-   * @param {*} key
-   * @param {*} method
-   * @param {*} callback
-   * @param {*} data
-   * @param {*} urlEncode
-   * @private
-   */
-  #validateRequestArgs(keykey, key, method, callback, data, urlEncoded) {
-    // Validate keykey
-    if (typeof keykey !== "string") {
-      return false;
-    }
-    // Validate key
-    if (typeof key !== "string") {
-      return false;
-    }
-    // Validate method
-    if (typeof method !== "string" || !["get", "post"].includes(method.toLowerCase())) {
-      return false;
-    }
-    // Validate callback
-    if (typeof callback !== "function") {
-      return false;
-    }
-    // Validate data
-    if (typeof data !== "object" && data !== "undefined") {
-      return false;
-    }
-    // Validate urlEncoded
-    if (typeof urlEncoded !== "boolean") {
-      return false;
-    }
-    // All done!
-    return true;
   }
 
 }
