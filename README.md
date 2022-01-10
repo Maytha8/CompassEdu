@@ -1,6 +1,8 @@
 # CompassEdu
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/Maytha8/CompassEdu?style=flat-square)
 ![npm](https://img.shields.io/npm/v/CompassEdu?style=flat-square)
+[![GitHub issues](https://img.shields.io/github/issues/Maytha8/CompassEdu?style=flat-square)](https://github.com/Maytha8/CompassEdu/issues)
+[![GitHub license](https://img.shields.io/github/license/Maytha8/CompassEdu?style=flat-square)](https://github.com/Maytha8/CompassEdu/blob/main/COPYING.txt)
 
 **Currently under development!**<br>
 A package for interacting with Compass Education.
