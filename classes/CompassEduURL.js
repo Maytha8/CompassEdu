@@ -10,18 +10,30 @@ const { URL, URLSearchParams } = require('url');
 class CompassEduURL extends URL {
 
   /**
-   * The method of the request
+   * The authentication key used for requests.
    * @type {string}
-   * @public
+   * @private
    */
+  #authKey = null;
+
+  /**
+   * The key of the authentication key used for requests.
+   * @type {string}
+   * @private
+   */
+  #authKeyKey = null;
 
   /**
    * Create a CompassEduURL object
    * @param {string}     input  - The absolute or relative input URL to parse. If `input` is relative, then `base` is required. If `input` is absolute, the `base` is ignored.
    * @param {string|URL} [base] - The base URL to resolve against if the `input` is not absolute.
+   * @param {string}     keykey - The key of the authentication key used for requests.
+   * @param {string}     key    - The authentication key used for requests.
    */
-  constructor(input, base) {
+  constructor(input, base, keykey, key) {
     super(input, base);
+    this.#authKeyKey = keykey;
+    this.#authKey = key;
   }
 
   /**
@@ -37,7 +49,7 @@ class CompassEduURL extends URL {
    * @param {boolean}         [urlEncode=false] - Whether to url-encode the payload or send it in json format
    * @example
    * // Make a request using this url
-   * myUrl.request('post', function(res) {
+   * myUrl.request(myKeyKey, myKey, 'post', function(res) {
    *   console.log(res.statusCode);
    *   console.log(res.headers);
    *   res.on('data', function(d) {
@@ -45,9 +57,9 @@ class CompassEduURL extends URL {
    *   });
    * });
    */
-  request(key, method, callback, data, urlEncoded = false) {
+  request(keykey, key, method, callback, data, urlEncoded = false) {
     // Quickly validate data
-    if (!this.#validateRequestArgs(key, method, callback, data, urlEncoded)) {
+    if (!this.#validateRequestArgs(keykey, key, method, callback, data, urlEncoded)) {
       return;
     }
     if (data) {
@@ -80,7 +92,11 @@ class CompassEduURL extends URL {
    * @param {*} urlEncode
    * @private
    */
-  #validateRequestArgs(key, method, callback, data, urlEncoded) {
+  #validateRequestArgs(keykey, key, method, callback, data, urlEncoded) {
+    // Validate keykey
+    if (typeof keykey !== "string") {
+      return false;
+    }
     // Validate key
     if (typeof key !== "string") {
       return false;

@@ -22,6 +22,13 @@ class CompassEdu {
   #authKey = null;
 
   /**
+   * The key of the authentication key used for requests.
+   * @type {string}
+   * @private
+   */
+  #authKeyKey = null;
+
+  /**
    * The base URL used for requests.
    * @type {string}
    * @private
@@ -60,10 +67,11 @@ class CompassEdu {
   constructor(url, username, password) {
     const req = new CompassEduURL("/login.aspx?sessionstate=disabled", url);
     req.request('post', function(res) {
-      if (res.headers["set-cookie"].filter((cookie) => cookie.startsWith("username=")).length > 0 && res.statusCode == 302) {
-        var cpssid = res.headers["set-cookie"].filter((cookie) => cookie.startsWith("cpssid_"));
-        if (cpssid.length > 0) {
-          this.#authKey = cpssid[0];
+      if (Object.keys(res.headers["set-cookie"]).filter((cookie) => cookie.startsWith("username=")).length > 0 && res.statusCode == 302) {
+        var cpssidKey = Object.keys(res.headers["set-cookie"]).filter((cookie) => cookie.startsWith("cpssid_"));
+        if (cpssidKey.length > 0) {
+          this.#authKeyKey = cpssidKey;
+          this.#authKey = res.headers["set-cookie"][cpssidKey];
           this.#baseUrl = url;
           this.#authValid = true;
         } else {
