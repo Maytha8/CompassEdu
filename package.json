@@ -1,6 +1,6 @@
 {
   "name": "compassedu",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A package for interacting with Compass Education.",
   "main": "index.js",
   "engines": {
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Maytha8/compassedu.git"
+    "url": "git+https://github.com/Maytha8/CompassEdu.git"
   },
   "author": "Maytham Alsudany <maytham.alsudany@gmail.com>",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/Maytha8/compassedu/issues"
+    "url": "https://github.com/Maytha8/CompassEdu/issues"
   },
-  "homepage": "https://github.com/Maytha8/compassedu#readme",
+  "homepage": "https://github.com/Maytha8/CompassEdu#readme",
   "devDependencies": {
     "better-docs": "^2.3.2",
     "docdash": "^1.2.0",
