@@ -72,7 +72,7 @@ class CompassEdu {
         if (cpssidKey.length > 0) {
           this.#authKeyKey = cpssidKey;
           this.#authKey = res.headers["set-cookie"][cpssidKey];
-          this.#baseUrl = url;
+          this.#baseURL = url;
           this.#authValid = true;
         } else {
           error = new Error("Invalid credentials");
