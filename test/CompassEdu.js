@@ -1,11 +1,9 @@
 var compassedu = require('../')
   , app = new compassedu('https://test.compass.education')
   , nock = require('nock')
-  , chaiNock = require('chai-nock')
   , chai = require('chai')
   , assert = chai.assert
   , nockBase = nock('https://test.compass.education');
-chai.use(chaiNock)
 
 describe('CompassEdu', function() {
   it('should return an object with authentication and request methods', function() {
