@@ -5,7 +5,7 @@
     "recurse": true
   },
   "source": {
-    "include": ["."],
+    "include": ["src"],
     "includePattern": ".+\\.js(doc|x)?$",
     "excludePattern": "node_modules"
   },
