@@ -9,12 +9,6 @@ const {
 class CompassEdu {
 
   /**
-   * The last error that occurred.
-   * @type {boolean|Error}
-   */
-  lastErr = false;
-
-  /**
    * The authentication key used for requests.
    * @type {string}
    * @private
@@ -69,6 +63,9 @@ class CompassEdu {
    * @param {string} url - The base URL for the school-specific Compass website without the trailing slash.
    */
   constructor(url) {
+    if (arguments.length < 1) {
+      throw new TypeError("CompassEdu requires at least 1 argument, but only "+arguments.length+" were passed");
+    }
     this.#baseURL = url;
   }
 
@@ -78,6 +75,9 @@ class CompassEdu {
    * @param {string} password - The plaintext password of the user to login as.
    */
   async authenticate(username, password) {
+    if (arguments.length < 2) {
+      throw new TypeError("CompassEdu.authenticate requires at least 2 arguments, but only "+arguments.length+" were passed");
+    }
     this.#authUsername = username;
     this.#authPassword = password;
     try {
@@ -104,14 +104,12 @@ class CompassEdu {
           return true;
         } else {
           const err = new Error("Invalid credentials");
-          err.name = "InvalidAuthError";
-          this.lastErr = err;
+          err.name = "AuthError";
           throw err;
         }
       } else {
         const err = new Error("Invalid credentials");
-        err.name = "InvalidAuthError";
-        this.lastErr = err;
+        err.name = "AuthError";
         throw err;
       }
     } catch (e) {
