@@ -173,7 +173,7 @@ class CompassEdu {
 
   /**
    * Get all locations
-   * @return {{archived: Boolean, building: String, id: Int, longName: String, n: String, roomName: String}[]} - Array of objects. All the locations at the school.
+   * @return {Array.<{archived: Boolean, building: String, id: Int, longName: String, n: String, roomName: String}>} - Array of objects. All the locations at the school.
    */
   async getAllLocations() {
     try {
@@ -199,7 +199,7 @@ class CompassEdu {
 
   /**
    * Get available chronicle ratings
-   * @return {{description: String, enumValue: Int, group: String|Null, name: String}[]} - Array of objects. All the locations at the school.
+   * @return {Array.<{description: String, enumValue: Int, group: String|Null, name: String}>} - Array of objects. All the locations at the school.
    */
   async getChronicleRatings() {
     try {

@@ -7,7 +7,8 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "test": "MOCHA_BADGE_STYLE=flat-square mocha --reporter mocha-reporter-badge > test/badge.svg",
+    "test": "mocha",
+    "generate-badge": "MOCHA_BADGE_STYLE=flat-square mocha --reporter mocha-reporter-badge > test/badge.svg",
     "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json"
   },
   "repository": {
