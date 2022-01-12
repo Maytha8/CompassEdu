@@ -1,5 +1,5 @@
 {
-  "name": "compassedu",
+  "name": "@maytha8/compassedu",
   "version": "0.1.1",
   "description": "A package for interacting with Compass Education.",
   "main": "index.js",

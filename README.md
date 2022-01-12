@@ -1,5 +1,5 @@
 # CompassEdu
-![npm](https://img.shields.io/npm/v/CompassEdu?style=flat-square)
+![npm](https://img.shields.io/npm/v/@maytha8/compassedu?style=flat-square)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/Maytha8/CompassEdu?label=dev&style=flat-square)
 [![GitHub issues](https://img.shields.io/github/issues/Maytha8/CompassEdu?style=flat-square)](https://github.com/Maytha8/CompassEdu/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/Maytha8/CompassEdu?style=flat-square)](https://github.com/Maytha8/CompassEdu/pulls)
