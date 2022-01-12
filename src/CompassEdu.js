@@ -1,18 +1,18 @@
 "use strict";
 
-const https = require('https');
-//const { URL, URLSearchParams } = require("url");
-const { CompassEduURL } = require('./CompassEduURL');
+const axios = require('axios');
+const {
+  URLSearchParams
+} = require("url");
 
 /** CompassEdu class. */
 class CompassEdu {
 
   /**
-   * The last error that was thrown.
-   * @type {errors.Error}
-   * @public
+   * The last error that occurred.
+   * @type {boolean|Error}
    */
-  error = false;
+  lastErr = false;
 
   /**
    * The authentication key used for requests.
@@ -65,6 +65,97 @@ class CompassEdu {
   #authPassword = "";
 
   /**
+   * Create a CompassEdu object.
+   * @param {string} url - The base URL for the school-specific Compass website without the trailing slash.
+   */
+  constructor(url) {
+    this.#baseURL = url;
+  }
+
+  /**
+   * Authenticate using the supplied credentials.
+   * @param {string} username - The username of the user to login as.
+   * @param {string} password - The plaintext password of the user to login as.
+   */
+  async authenticate(username, password) {
+    this.#authUsername = username;
+    this.#authPassword = password;
+    try {
+      const res = await axios.request({
+        url: "/login.aspx?sessionstate=disabled",
+        baseURL: this.#baseURL,
+        method: 'post',
+        transformRequest: this.#getTransformRequestFn('urlencoded'),
+        maxRedirects: 0,
+        data: {
+          '__EVENTTARGET': 'button1',
+          username: this.#authUsername,
+          password: this.#authPassword
+        },
+        validateStatus: this.#validateStatus
+      });
+      if (res.headers["set-cookie"].filter((cookie) => cookie.startsWith("username=")).length > 0 && res.status == 302) {
+        var cpssid = res.headers["set-cookie"].filter((cookie) => cookie.startsWith("cpssid_"));
+        if (cpssid.length > 0) {
+          const authKey = cpssid[0].substring(0, cpssid[0].indexOf(';') != -1 ? cpssid[0].indexOf(';') : cpssid.length).split("=");
+          this.#authKeyKey = authKey[0];
+          this.#authKey = authKey[1];
+          this.#authValid = true;
+          return true;
+        } else {
+          const err = new Error("Invalid credentials");
+          err.name = "InvalidAuthError";
+          this.lastErr = err;
+          throw err;
+        }
+      } else {
+        const err = new Error("Invalid credentials");
+        err.name = "InvalidAuthError";
+        this.lastErr = err;
+        throw err;
+      }
+    } catch (e) {
+      console.log("error encountered in auth req");
+      return e.toJSON();
+    }
+  }
+
+  /**
+   * Return a function that can encode the request into the desired encoding type
+   * @param  {String} type - The desired encoding type
+   * @return {Function}    - A function that can be used to encode the request into the desired encoding type
+   * @private
+   */
+  #getTransformRequestFn(type) {
+    if (type === 'urlencoded') {
+      return function(data) {
+        return (new URLSearchParams(data)).toString();
+      }
+    } else if (type === 'json') {
+      return function(data) {
+        return JSON.stringify(data);
+      }
+    }
+  }
+
+  /**
+   * Parse a JSON response
+   * @param {String}  - JSON string
+   * @return {Object} - The parsed data as an object
+   * @private
+   */
+  #transformResponse(data) {
+    return JSON.parse(data);
+  }
+
+  /**
+   * @private
+   */
+  #validateStatus(status) {
+    return status >= 200 && status <= 302;
+  }
+
+  /**
    * Get the username that the object is logged in as.
    * @retun {string} - The username that the object is logged in as.
    */
@@ -81,67 +172,57 @@ class CompassEdu {
   }
 
   /**
-   * Create a CompassEdu object and login. This is a "thenable".
-   * @param {string} url - The base URL for the school-specific Compass website without the trailing slash.
-   * @param {string} username - The username of the user to login as.
-   * @param {string} password - The plaintext password of the user to login as.
+   * Get all locations
+   * @return {{archived: Boolean, building: String, id: Int, longName: String, n: String, roomName: String}[]} - Array of objects. All the locations at the school.
    */
-  constructor(url, username, password) {
-    this.#baseURL = url;
-  }
-
-  then(resolve, reject) {
-    const reqURL = new CompassEduURL("/login.aspx?sessionstate=disabled", url);
-    const req = reqURL.request('post', function(res) {
-      console.log(res.headers);
-      if (Object.keys(res.headers["set-cookie"]).filter((cookie) => cookie.startsWith("username=")).length > 0 && res.statusCode == 302) {
-        var cpssidKey = Object.keys(res.headers["set-cookie"]).filter((cookie) => cookie.startsWith("cpssid_"));
-        if (cpssidKey.length > 0) {
-          this.#authKeyKey = cpssidKey;
-          this.#authKey = res.headers["set-cookie"][cpssidKey];
-          this.#authValid = true;
-          resolve();
-        } else {
-          reject(new Error("Invalid credentials"));
-        }
+  async getAllLocations() {
+    try {
+      const res = await axios.request({
+        url: "/Services/ReferenceDataCache.svc/GetAllLocations?sessionstate=readonly",
+        baseURL: this.#baseURL,
+        method: 'get',
+        transformResponse: this.#transformResponse,
+        maxRedirects: 0,
+        withCredentials: true
+      });
+      if (res.status == 200) {
+        return res.data.d;
       } else {
-        reject(new Error("Invalid credentials"));
+        const e = new Error("Response failed with status " + res.status);
+        e.name = "RequestFailedError";
+        throw e;
       }
-    }, {
-      '__EVENTTARGET': 'button1',
-      username: username,
-      password: password
-    }, true);
-    req.on('error', function(e) {
-      reject(e);
-    });
-    req.end();
+    } catch (e) {
+      throw e;
+    }
   }
 
   /**
-   * Get all locations
-   * @param {int} [limit=25]
-   * @param {int} [page=1]
-   * @param {int} [start=0]
+   * Get available chronicle ratings
+   * @return {{description: String, enumValue: Int, group: String|Null, name: String}[]} - Array of objects. All the locations at the school.
    */
-  async getAllLocations(limit = 25, page = 1, start = 0) {
-    var r;
-    const url = new CompassEduURL("/Services/ReferenceDataCache.svc/GetAllLocations?sessionstate=readonly", this.#baseURL);
-    url.setAuth(this.#authKeyKey, this.#authKey);
-    url.searchParams.append('limit', limit);
-    url.searchParams.append('page', page);
-    url.searchParams.append('start', start);
-    url.request('get', function(res) {
-      if (res.statusCode == 200) {
-        res.on("data", function(d) {
-          
-        });
+  async getChronicleRatings() {
+    try {
+      const res = await axios.request({
+        url: "/Services/ReferenceDataCache.svc/GetChronicleRatings",
+        baseURL: this.#baseURL,
+        method: 'get',
+        transformResponse: this.#transformResponse,
+        maxRedirects: 0,
+        withCredentials: true
+      });
+      if (res.status == 200) {
+        return res.data;
       } else {
-        this.error = new Error();
-        cb();
+        const e = new Error("Response failed with status " + res.status);
+        e.name = "RequestFailedError";
+        throw e;
       }
-    });
+    } catch (e) {
+      throw e;
+    }
   }
+
 }
 
 module.exports.CompassEdu = CompassEdu;
