@@ -9,7 +9,6 @@ describe('CompassEdu', function() {
   it('should return an object with authentication and request methods', function() {
     assert.typeOf(app, 'object');
 
-    assert.typeOf(app.lastErr, 'boolean');
     assert.typeOf(app.getBaseURL, 'function');
     assert.typeOf(app.authenticate, 'function');
     assert.typeOf(app.getUsername, 'function');
@@ -18,7 +17,6 @@ describe('CompassEdu', function() {
     assert.typeOf(app.getChronicleRatings, 'function');
   });
   it('should have properties set to default', function() {
-    assert.equal(app.lastErr, false, "the last error should be set to false");
     assert.equal(app.getUsername(), "", "there should be an empty string for username");
     assert.equal(app.getAuthorized(), false, "the app should not be yet authorized");
   });
