@@ -6,8 +6,6 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 ![Test Results](https://raw.githubusercontent.com/Maytha8/CompassEdu/main/test/badge.svg)
 
-[![NPM](https://nodei.co/npm/@maytha8/compassedu.png)](https://www.npmjs.com/package/@maytha8/compassedu)
-
 **Currently under development!**<br>
 A package for interacting with Compass Education.
 
