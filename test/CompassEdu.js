@@ -9,19 +9,22 @@ describe('CompassEdu', function() {
   it('should return an object with authentication and request methods', function() {
     assert.typeOf(app, 'object');
 
-    assert.typeOf(app.getBaseURL, 'function');
+    // Properties
+    assert.typeOf(app.baseURL, 'null');
+    assert.typeOf(app.username, 'string');
+    assert.typeOf(app.authenticated, 'boolean');
+
+    // Functions
     assert.typeOf(app.authenticate, 'function');
-    assert.typeOf(app.getUsername, 'function');
-    assert.typeOf(app.getAuthorized, 'function');
     assert.typeOf(app.getAllLocations, 'function');
     assert.typeOf(app.getChronicleRatings, 'function');
   });
-  it('should have properties set to default', function() {
-    assert.equal(app.getUsername(), "", "there should be an empty string for username");
-    assert.equal(app.getAuthorized(), false, "the app should not be yet authorized");
+  it('should not be authenticated yet', function() {
+    assert.equal(app.username, "", "there should be an empty string for username");
+    assert.equal(app.authenticated, false, "the app should not be yet authorized");
   });
   it('should give the base url given when the object was constructed', function() {
-    assert.equal(app.getBaseURL(), 'https://test.compass.education', "the base url should be the one given");
+    assert.equal(app.baseURL, 'https://test.compass.education', "the base url should be the one given");
   });
 });
 
@@ -41,9 +44,9 @@ describe('app.authenticate', function() {
     assert.equal(auth, true, "app.authenticate should return true when successful");
   });
   it('should acknowledge that the user is authenticated', function() {
-    assert.equal(app.getAuthorized(), true, "the app should be authorized");
+    assert.equal(app.authenticated, true, "the app should be authorized");
   });
   it('should give the username the app is authenticated as', function() {
-    assert.equal(app.getUsername(), 'testuser', "the username should be testuser");
+    assert.equal(app.username, 'testuser', "the username should be testuser");
   });
 });
