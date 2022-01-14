@@ -32,9 +32,9 @@ class CompassEdu {
   /**
    * Whether the object is logged in and authorized.
    * @type {boolean}
-   * @private
+   * @readonly
    */
-  #authValid = false;
+  authenticated = false;
 
   /**
    * The username that the object is logged in as.
@@ -102,7 +102,7 @@ class CompassEdu {
           const authKey = cpssid[0].substring(0, cpssid[0].indexOf(';') != -1 ? cpssid[0].indexOf(';') : cpssid.length).split("=");
           this.#authKeyKey = authKey[0];
           this.#authKey = authKey[1];
-          this.#authValid = true;
+          Object.defineProperty(this, 'authenticated', {value:true,writable:false})
           return true;
         } else {
           const err = new Error("Invalid credentials");
@@ -143,14 +143,6 @@ class CompassEdu {
    */
   #validateStatus(status) {
     return status >= 200 && status <= 302;
-  }
-
-  /**
-   * Get whether the object logged in and authorized.
-   * @return {boolean} - Whether the object is authorized or not.
-   */
-  getAuthorized() {
-    return this.#authValid;
   }
 
   /**
