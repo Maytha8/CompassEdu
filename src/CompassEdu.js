@@ -1,9 +1,8 @@
 'use strict';
 
 const axios = require('axios');
-const {
-  URLSearchParams
-} = require("url");
+const { URLSearchParams } = require("url");
+const { CompassEduLocation } = require("./CompassEduLocation");
 
 /** CompassEdu class. */
 class CompassEdu {
@@ -151,7 +150,7 @@ class CompassEdu {
 
   /**
    * Get all locations
-   * @return {Array.<{archived: Boolean, building: String, id: Int, longName: String, n: String, roomName: String}>} - Array of objects. All the locations at the school.
+   * @return {Array.<CompassEduLocation>} - Array of locations.
    */
   async getAllLocations() {
     try {
@@ -163,7 +162,11 @@ class CompassEdu {
         withCredentials: true
       });
       if (res.status == 200) {
-        return res.data.d;
+        var locations = [];
+        res.data.d.forEach((item, index) => {
+          locations[index] = new CompassEduLocation(this, item);
+        });
+        return locations;
       } else {
         const e = new Error("Response failed with status " + res.status);
         e.name = "RequestFailedError";
