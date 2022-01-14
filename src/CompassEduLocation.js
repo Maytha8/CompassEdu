@@ -55,7 +55,7 @@ class CompassEduLocation {
     }
     if (
       data.hasOwnProperty('archived') &&
-      data.hasOwnProperty('bulding') &&
+      data.hasOwnProperty('building') &&
       data.hasOwnProperty('id') &&
       data.hasOwnProperty('longName') &&
       data.hasOwnProperty('n')
