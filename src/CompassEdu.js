@@ -30,14 +30,6 @@ class CompassEdu {
   baseURL = null;
 
   /**
-   * Get the base URL used for requests.
-   * @return {string} - The base URL.
-   */
-  getBaseURL() {
-    return this.#baseURL;
-  }
-
-  /**
    * Whether the object is logged in and authorized.
    * @type {boolean}
    * @private
