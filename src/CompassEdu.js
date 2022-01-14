@@ -89,7 +89,7 @@ class CompassEdu {
     try {
       const res = await axios.request({
         url: "/login.aspx?sessionstate=disabled",
-        baseURL: this.#baseURL,
+        baseURL: this.baseURL,
         method: 'post',
         transformRequest: this.#getTransformRequestFn('urlencoded'),
         maxRedirects: 0,
@@ -157,7 +157,7 @@ class CompassEdu {
     try {
       const res = await axios.request({
         url: "/Services/ReferenceDataCache.svc/GetAllLocations?sessionstate=readonly",
-        baseURL: this.#baseURL,
+        baseURL: this.baseURL,
         method: 'get',
         maxRedirects: 0,
         withCredentials: true
@@ -182,7 +182,7 @@ class CompassEdu {
     try {
       const res = await axios.request({
         url: "/Services/ReferenceDataCache.svc/GetChronicleRatings",
-        baseURL: this.#baseURL,
+        baseURL: this.baseURL,
         method: 'get',
         maxRedirects: 0,
         withCredentials: true
