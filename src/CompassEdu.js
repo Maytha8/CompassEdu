@@ -147,16 +147,6 @@ class CompassEdu {
   }
 
   /**
-   * Parse a JSON response
-   * @param {String}  - JSON string
-   * @return {Object} - The parsed data as an object
-   * @private
-   */
-  #transformResponse(data) {
-    return JSON.parse(data);
-  }
-
-  /**
    * @private
    */
   #validateStatus(status) {
@@ -181,7 +171,6 @@ class CompassEdu {
         url: "/Services/ReferenceDataCache.svc/GetAllLocations?sessionstate=readonly",
         baseURL: this.#baseURL,
         method: 'get',
-        transformResponse: this.#transformResponse,
         maxRedirects: 0,
         withCredentials: true
       });
@@ -207,7 +196,6 @@ class CompassEdu {
         url: "/Services/ReferenceDataCache.svc/GetChronicleRatings",
         baseURL: this.#baseURL,
         method: 'get',
-        transformResponse: this.#transformResponse,
         maxRedirects: 0,
         withCredentials: true
       });
