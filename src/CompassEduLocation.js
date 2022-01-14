@@ -31,21 +31,14 @@ class CompassEduLocation {
   id = null;
 
   /**
-   * The long name of the building
+   * The long name of the room
    * @type {String}
    * @readonly
    */
-  longName = "";
+  roomLongName = "";
 
   /**
    * The short name of the room
-   * @type {String}
-   * @readonly
-   */
-  name = "";
-
-  /**
-   * The long name of the room
    * @type {String}
    * @readonly
    */
@@ -65,8 +58,7 @@ class CompassEduLocation {
       data.hasOwnProperty('bulding') &&
       data.hasOwnProperty('id') &&
       data.hasOwnProperty('longName') &&
-      data.hasOwnProperty('n') &&
-      data.hasOwnProperty('roomName')
+      data.hasOwnProperty('n')
     ) {
       Object.defineProperties(this, {
         parent: {
@@ -89,18 +81,13 @@ class CompassEduLocation {
           writable: false,
           enumerable: true
         },
-        longName: {
+        roomLongName: {
           value: data.longName,
           writable: false,
           enumerable: true
         },
-        name: {
-          value: data.n,
-          writable: false,
-          enumerable: true
-        },
         roomName: {
-          value: data.roomName,
+          value: data.n,
           writable: false,
           enumerable: true
         },
