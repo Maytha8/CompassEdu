@@ -66,10 +66,8 @@ class CompassEdu {
     // Make properties readonly
     Object.defineProperties(this, {
       username: {writable:false,configurable:true},
-      authenticated: {writable:false,configurable:true},
-      baseURL: {writable:false,configurable:true},
+      authenticated: {writable:false,configurable:true}
     })
-    this.#baseURL = url;
   }
 
   /**
