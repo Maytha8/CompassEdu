@@ -10,7 +10,7 @@ describe('CompassEdu', function() {
     assert.typeOf(app, 'object');
 
     // Properties
-    assert.typeOf(app.baseURL, 'null');
+    assert.typeOf(app.baseURL, 'string');
     assert.typeOf(app.username, 'string');
     assert.typeOf(app.authenticated, 'boolean');
 
