@@ -25,9 +25,9 @@ class CompassEdu {
   /**
    * The base URL used for requests.
    * @type {string}
-   * @private
+   * @readonly
    */
-  #baseURL = null;
+  baseURL = null;
 
   /**
    * Get the base URL used for requests.
@@ -47,9 +47,9 @@ class CompassEdu {
   /**
    * The username that the object is logged in as.
    * @type {string}
-   * @private
+   * @readonly
    */
-  #authUsername = "";
+  username = "";
 
   /**
    * The password that was used to authenticate the object with Compass Edu.
@@ -66,6 +66,11 @@ class CompassEdu {
     if (arguments.length < 1) {
       throw new TypeError("CompassEdu requires at least 1 argument, but only "+arguments.length+" were passed");
     }
+    Object.defineProperty(this, 'baseURL', {
+      value: url,
+      writable: false,
+      enumerable: true
+    });
     this.#baseURL = url;
   }
 
@@ -78,7 +83,12 @@ class CompassEdu {
     if (arguments.length < 2) {
       throw new TypeError("CompassEdu.authenticate requires at least 2 arguments, but only "+arguments.length+" were passed");
     }
-    this.#authUsername = username;
+    Object.defineProperty(this, 'username', {
+      value: username,
+      writable: false,
+      enumerable: true,
+      configurable: true
+    });
     this.#authPassword = password;
     try {
       const res = await axios.request({
@@ -89,7 +99,7 @@ class CompassEdu {
         maxRedirects: 0,
         data: {
           '__EVENTTARGET': 'button1',
-          username: this.#authUsername,
+          username: this.username,
           password: this.#authPassword
         },
         validateStatus: this.#validateStatus
@@ -151,14 +161,6 @@ class CompassEdu {
    */
   #validateStatus(status) {
     return status >= 200 && status <= 302;
-  }
-
-  /**
-   * Get the username that the object is logged in as.
-   * @retun {string} - The username that the object is logged in as.
-   */
-  getUsername() {
-    return this.#authUsername;
   }
 
   /**
