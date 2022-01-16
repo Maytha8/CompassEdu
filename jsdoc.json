@@ -2,7 +2,8 @@
   "opts": {
     "template": "node_modules/better-docs",
     "readme": "README.md",
-    "recurse": true
+    "recurse": true,
+    "tutorials": "./tutorials"
   },
   "source": {
     "include": ["src"],
