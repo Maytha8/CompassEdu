@@ -4,6 +4,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/Maytha8/CompassEdu?style=flat-square)](https://github.com/Maytha8/CompassEdu/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/Maytha8/CompassEdu?style=flat-square)](https://github.com/Maytha8/CompassEdu/pulls)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+![Coveralls branch](https://img.shields.io/coveralls/github/Maytha8/CompassEdu/main?style=flat-square)
 
 **Currently under development!**<br>
 A package for interacting with Compass Education.
