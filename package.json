@@ -4,7 +4,7 @@
   "description": "A package for interacting with Compass Education.",
   "main": "index.js",
   "engines": {
-    "node": ">=14s"
+    "node": ">=14"
   },
   "scripts": {
     "test": "nyc --reporter=lcov mocha",
