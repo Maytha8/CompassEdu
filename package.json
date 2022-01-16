@@ -7,7 +7,7 @@
     "node": "14.x"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "nyc --reporter=lcov mocha",
     "generate-badge": "MOCHA_BADGE_STYLE=flat-square mocha --reporter mocha-reporter-badge > test/badge.svg",
     "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json"
   },
@@ -30,6 +30,7 @@
     "nock": "^13.2.2"
   },
   "dependencies": {
-    "axios": "^0.24.0"
+    "axios": "^0.24.0",
+    "nyc": "^15.1.0"
   }
 }
