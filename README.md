@@ -3,7 +3,8 @@
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/Maytha8/CompassEdu?label=dev&style=flat-square)
 [![GitHub issues](https://img.shields.io/github/issues/Maytha8/CompassEdu?style=flat-square)](https://github.com/Maytha8/CompassEdu/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/Maytha8/CompassEdu?style=flat-square)](https://github.com/Maytha8/CompassEdu/pulls)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Maytha8/CompassEdu/Node.js%20CI?label=linux&style=flat-square)
+![AppVeyor tests](https://img.shields.io/appveyor/tests/Maytha8/compassedu?label=windows&style=flat-square)
 ![Coveralls branch](https://img.shields.io/coveralls/github/Maytha8/CompassEdu/main?style=flat-square)
 
 **Currently under development!**<br>
