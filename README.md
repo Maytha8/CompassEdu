@@ -18,14 +18,32 @@ The latest stable release is on npm, so you can use:
 npm install @maytha8/compassedu
 ```
 
-To install straight from the development repository, use the following:
+To install straight from the GitHub repository, use the following:
 ```sh
 npm install https://github.com/Maytha8/CompassEdu
 ```
 
-If you're contributing to this project, then use this:
+For contributing to this project, then use this:
 ```sh
 git clone https://github.com/Maytha8/CompassEdu.git
 cd CompassEdu
 npm install
 ```
+
+## Usage
+```js
+const compassedu = require('compassedu');
+try {
+  const app = new compassedu('https://example.compass.education');
+  app.authenticate('myUsername', 'myPassword');
+  // your code here
+} catch (e) {
+  // error handling here
+}
+```
+
+The documentation and code reference can be found at [https://maytha8.github.io/CompassEdu/](https://maytha8.github.io/CompassEdu).
+
+## What next?
+- Follow the {@tutorial gettingstarted} tutorial.
+- See [the CompassEdu class]{@link CompassEdu} for more information on its members and methods.
