@@ -7,7 +7,35 @@ var compassedu              = require('../')
   , assert                  = chai.assert
   , nockBase                = nock('https://test.compass.education');
 
+assert.throwsAsync = async function(method, errObj, errMsg) {
+  let err = null;
+  try {
+    await method();
+  } catch (e) {
+    err = e;
+  }
+  assert.instanceOf(err, errObj);
+  if (errMsg) {
+    assert.equal(err.message, errMsg);
+  }
+};
+
 describe('app.getAllLocations', function() {
+  it('should throw an error if the request fails', async function() {
+    nockBase
+      .get('/Services/ReferenceDataCache.svc/GetAllLocations?sessionstate=readonly')
+      .reply(404, {});
+
+    // assert.throwsAsync(async function() {
+    //   await app.getAllLocations();
+    // }, Error, "Response failed with status 404");
+    try {
+      await app.getAllLocations();
+    } catch (e) {
+      assert.instanceOf(e, Error, "an Error object should be thrown");
+      assert.equal(e.message, "Request failed with status code 404", "the error should have the correct message");
+    }
+  });
   it('should get all locations as an array of CompassEduLocation objects', async function() {
     nockBase
       .get('/Services/ReferenceDataCache.svc/GetAllLocations?sessionstate=readonly')
@@ -38,10 +66,10 @@ describe('app.getAllLocations', function() {
 
     assert.typeOf(locations, 'array', "the app should return an array");
     assert.equal(locations.length, 2, "the app should return the correct amount of locations");
-    assert.typeOf(locations[0], 'object', "the locations should be objects");
-    assert.typeOf(locations[1], 'object', "the locations should be objects");
-    assert.instanceOf(locations[0], CompassEduLocation, "the location objects should be instances of CompassEduLocation");
-    assert.instanceOf(locations[1], CompassEduLocation, "the location objects should be instances of CompassEduLocation");
+    assert.typeOf(locations[0], 'object', "the array items should be objects");
+    assert.typeOf(locations[1], 'object', "the array items should be objects");
+    assert.instanceOf(locations[0], CompassEduLocation, "the array items should be objects that are instances of CompassEduLocation");
+    assert.instanceOf(locations[1], CompassEduLocation, "the array items should be objects that are instances of CompassEduLocation");
 
     assert.instanceOf(locations[0].parent, CompassEdu, "the parent value should be set to the app");
     assert.isFalse(locations[0].archived, "the location should not be archived");
