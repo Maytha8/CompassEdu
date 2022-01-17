@@ -132,11 +132,13 @@ class CompassEdu {
    * @private
    */
   #getTransformRequestFn(type) {
-    if (type === 'urlencoded') {
-      return function(data) {
-        return (new URLSearchParams(data)).toString();
-      }
+    return function(data) {
+      return (new URLSearchParams(data)).toString();
     }
+    // if (type === 'urlencoded') {
+    //   return function(data) {
+    //     return (new URLSearchParams(data)).toString();
+    //   }
     // } else if (type === 'json') {
     //   return function(data) {
     //     return JSON.stringify(data);
