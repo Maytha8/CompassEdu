@@ -97,7 +97,7 @@ class CompassEdu {
           username: this.username,
           password: this.#authPassword
         },
-        validateStatus: this.#validateStatus
+        validateStatus(status) {return status >= 200 && status <= 302}
       });
       if (res.headers["set-cookie"].filter((cookie) => cookie.startsWith("username=")).length > 0 && res.status == 302) {
         var cpssid = res.headers["set-cookie"].filter((cookie) => cookie.startsWith("cpssid_"));
@@ -108,18 +108,19 @@ class CompassEdu {
           Object.defineProperty(this, 'authenticated', {value:true,writable:false})
           return true;
         } else {
-          const err = new Error("Invalid credentials");
+          const err = new Error('Invalid credentials');
           err.name = "AuthError";
           throw err;
         }
       } else {
-        const err = new Error("Invalid credentials");
+        const err = new Error('Invalid credentials');
         err.name = "AuthError";
         throw err;
       }
     } catch (e) {
-      console.log("error encountered in auth req");
-      return e.toJSON();
+      const err = new Error('Invalid credentials');
+      err.name = "AuthError";
+      throw err;
     }
   }
 
@@ -134,18 +135,12 @@ class CompassEdu {
       return function(data) {
         return (new URLSearchParams(data)).toString();
       }
-    } else if (type === 'json') {
-      return function(data) {
-        return JSON.stringify(data);
-      }
     }
-  }
-
-  /**
-   * @private
-   */
-  #validateStatus(status) {
-    return status >= 200 && status <= 302;
+    // } else if (type === 'json') {
+    //   return function(data) {
+    //     return JSON.stringify(data);
+    //   }
+    // }
   }
 
   /**
@@ -159,19 +154,13 @@ class CompassEdu {
         baseURL: this.baseURL,
         method: 'get',
         maxRedirects: 0,
-        withCredentials: true
+        validateStatus(status) {return status === 200}
       });
-      if (res.status == 200) {
-        var locations = [];
-        res.data.d.forEach((item, index) => {
-          locations[index] = new CompassEduLocation(this, item);
-        });
-        return locations;
-      } else {
-        const e = new Error("Response failed with status " + res.status);
-        e.name = "RequestFailedError";
-        throw e;
-      }
+      var locations = [];
+      res.data.d.forEach((item, index) => {
+        locations[index] = new CompassEduLocation(this, item);
+      });
+      return locations;
     } catch (e) {
       throw e;
     }
@@ -188,15 +177,13 @@ class CompassEdu {
         baseURL: this.baseURL,
         method: 'get',
         maxRedirects: 0,
-        withCredentials: true
+        validateStatus(status) {return status === 200}
       });
-      if (res.status == 200) {
-        return res.data;
-      } else {
-        const e = new Error("Response failed with status " + res.status);
-        e.name = "RequestFailedError";
-        throw e;
-      }
+      var data = res.data.d;
+      data.forEach((item, index) => {
+        delete data[index]['__type'];
+      });
+      return data;
     } catch (e) {
       throw e;
     }
