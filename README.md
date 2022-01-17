@@ -45,5 +45,5 @@ try {
 The documentation and code reference can be found at [https://maytha8.github.io/CompassEdu/](https://maytha8.github.io/CompassEdu).
 
 ## What next?
-- Follow the {@tutorial gettingstarted} tutorial.
-- See [the CompassEdu class]{@link CompassEdu} for more information on its members and methods.
+- Follow the [Getting Started](https://maytha8.github.io/CompassEdu/tutorial-gettingstarted.html) tutorial.
+- See [the CompassEdu class](https://maytha8.github.io/CompassEdu/CompassEdu.html) for more information on its members and methods.
