@@ -1,6 +1,6 @@
 {
   "name": "@maytha8/compassedu",
-  "version": "0.2.2",
+  "version": "0.2.3-alpha",
   "description": "A package for interacting with Compass Education.",
   "main": "index.js",
   "engines": {
