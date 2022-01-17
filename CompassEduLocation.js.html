@@ -1,0 +1,237 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CompassEdu Documentation CompassEduLocation.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">CompassEdu Documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                            <a class="dropdown-item" href="tutorial-gettingstarted.html">
+                                Getting Started
+                            </a>
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/Maytha8/CompassEdu"
+                        >
+                            GitHub
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="CompassEdu.html">CompassEdu</a></li><li><a href="CompassEduLocation.html">CompassEduLocation</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>CompassEduLocation.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+class CompassEduLocation {
+
+  /**
+   * The parent CompassEdu object
+   * @type {CompassEdu}
+   * @readonly
+   */
+  parent = null;
+
+  /**
+   * Whether the location is archived
+   * @type {Boolean}
+   * @readonly
+   */
+  archived = false;
+
+  /**
+   * Name of the building
+   * @type {String}
+   * @readonly
+   */
+  building = "";
+
+  /**
+   * The ID of the room
+   * @type {Int}
+   * @readonly
+   */
+  id = null;
+
+  /**
+   * The long name of the room
+   * @type {String}
+   * @readonly
+   */
+  roomLongName = "";
+
+  /**
+   * The short name of the room
+   * @type {String}
+   * @readonly
+   */
+  roomName = "";
+
+  /**
+   * The constructor
+   * @param {CompassEdu} parentObj - The parent CompassEdu object
+   * @param {Object}     data      - The raw data from the request
+   */
+  constructor(parentObj, data) {
+    if (arguments.length &lt; 2) {
+      throw new TypeError("CompassEduLocation requires at least 2 arguments, but only "+arguments.length+" were passed");
+    }
+    if (
+      data.hasOwnProperty('archived') &amp;&amp;
+      data.hasOwnProperty('building') &amp;&amp;
+      data.hasOwnProperty('id') &amp;&amp;
+      data.hasOwnProperty('longName') &amp;&amp;
+      data.hasOwnProperty('n')
+    ) {
+      Object.defineProperties(this, {
+        parent: {
+          value: parentObj,
+          writable: false,
+          enumerable: true
+        },
+        archived: {
+          value: data.archived,
+          writable: false,
+          enumerable: true
+        },
+        building: {
+          value: data.building,
+          writable: false,
+          enumerable: true
+        },
+        id: {
+          value: data.id,
+          writable: false,
+          enumerable: true
+        },
+        roomLongName: {
+          value: data.longName,
+          writable: false,
+          enumerable: true
+        },
+        roomName: {
+          value: data.n,
+          writable: false,
+          enumerable: true
+        },
+      });
+    } else {
+      throw new TypeError('CompassEduLocation requires a data object with the properties: archived, building, id, n, and roomName.')
+    }
+  }
+
+}
+
+module.exports.CompassEduLocation = CompassEduLocation;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>
