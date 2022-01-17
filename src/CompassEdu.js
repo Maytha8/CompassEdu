@@ -50,6 +50,7 @@ class CompassEdu {
   #authPassword = "";
 
   /**
+   * See {@tutorial gettingstarted}.
    * Create a CompassEdu object.
    * @param {string} url - The base URL for the school-specific Compass website without the trailing slash.
    */

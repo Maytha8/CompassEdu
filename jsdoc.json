@@ -1,9 +1,9 @@
 {
   "opts": {
     "template": "node_modules/better-docs",
-    "readme": "README.md",
+    "readme": "jsdoc-index.md",
     "recurse": true,
-    "tutorials": "./tutorials"
+    "tutorials": "docs"
   },
   "source": {
     "include": ["src"],
@@ -12,7 +12,15 @@
   },
   "templates": {
     "better-docs": {
-        "name": "CompassEdu Documentation"
+        "name": "CompassEdu Documentation",
+        "title": "CompassEdu Documentation",
+        "hideGenerator": true,
+        "navLinks": [
+          {
+            "label": "GitHub",
+            "href": "https://github.com/Maytha8/CompassEdu"
+          }
+        ]
     }
   },
   "plugins": [
