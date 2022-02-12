@@ -1,7 +1,9 @@
 ## Prerequisites
 - [git](https://git-scm.com/downloads)
 - npm
-- A text editor of your choice
+- node >=14
+- A command line
+- A text editor
 
 ## Instructions
 Paste the following into your command line:
