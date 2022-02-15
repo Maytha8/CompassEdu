@@ -1,0 +1,11 @@
+.github
+.vscode
+docs
+test
+.eslintignore
+.eslintrc.json
+appveyor.yml
+eslint-formatter-gh-actions.js
+jsdoc-index.md
+jsdoc.json
+workspace.code-workspace
