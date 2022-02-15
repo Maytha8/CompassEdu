@@ -6,7 +6,7 @@
 ![Linux build](https://img.shields.io/github/workflow/status/Maytha8/CompassEdu/Node.js%20CI?label=linux&style=flat-square)
 ![MacOS build](https://img.shields.io/github/workflow/status/Maytha8/CompassEdu/Node.js%20CI%20MacOS?label=macos&style=flat-square)
 ![Windows build](https://img.shields.io/github/workflow/status/Maytha8/CompassEdu/Node.js%20CI%20Windows?label=win&style=flat-square)
-![Coveralls branch](https://img.shields.io/coveralls/github/Maytha8/CompassEdu/main?style=flat-square)
+[![Coveralls branch](https://img.shields.io/coveralls/github/Maytha8/CompassEdu/main?style=flat-square)](https://coveralls.io/github/Maytha8/CompassEdu?branch=main)
 
 **Currently under development!**<br>
 A package for interacting with Compass Education.
