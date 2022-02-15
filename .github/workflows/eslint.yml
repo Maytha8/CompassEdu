@@ -1,4 +1,4 @@
-name: Node.JS CI Linux
+name: ESLint
 
 on:
   push:
