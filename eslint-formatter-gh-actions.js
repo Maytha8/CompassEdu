@@ -4,7 +4,7 @@ module.exports = function(results) {
   results.forEach((file) => {
     if (file.messages) {
       file.messages.forEach((message) => {
-        result += `::warning file=${file.filePath},line=${message.line},col=${message.col},endLine=${message.endLine},endColumn=${message.endColumn}::${message.message} (${message.ruleId})\n`;
+        result += `::${['notice', 'warning', 'error'][message.severity]} file=${file.filePath},line=${message.line},col=${message.col},endLine=${message.endLine},endColumn=${message.endColumn}::${message.message} (${message.ruleId})\n`;
       });
     }
   });

@@ -1,6 +1,6 @@
 'use strict';
 
-const test = '';
+const test = ''
 const axios = require('axios');
 const { validate } = require('bycontract');
 const { CompassEduAuth } = require('./CompassEduAuth');
