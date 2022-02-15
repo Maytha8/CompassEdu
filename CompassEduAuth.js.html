@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CompassEdu Documentation CompassEduAuth.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">CompassEdu Documentation</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                <div class="dropdown is-hoverable is-right">
+                    <a class="dropdown-trigger link">
+                        Tutorials
+                        <i class="fas fa-chevron-down fa-xs"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-content">
+                        
+                            <a class="dropdown-item" href="tutorial-gettingstarted.html">
+                                Getting Started
+                            </a>
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/Maytha8/CompassEdu"
+                        >
+                            GitHub
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="CompassEdu.html">CompassEdu</a></li><li><a href="CompassEduAuth.html">CompassEduAuth</a></li><li><a href="CompassEduAuthError.html">CompassEduAuthError</a></li><li><a href="CompassEduFileHandler.html">CompassEduFileHandler</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>CompassEduAuth.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+const axios = require('axios');
+const { validate } = require('bycontract');
+const { URLSearchParams, URL } = require('url');
+const { JSDOM } = require('jsdom');
+const { CompassEduAuthError } = require('./CompassEduAuthError');
+
+/** CompassEdu authentication handling class. */
+class CompassEduAuth {
+
+  /**
+   * The base URL used for requests.
+   * @type {?String}
+   * @private
+   */
+  #baseURL = null;
+
+  /**
+   * Get the base URL used for requests.
+   * @returns {?String} - The base URL used for requests.
+   */
+  getBaseURL() {
+    return this.#baseURL;
+  }
+
+  /**
+   * The authentication header that can be used for requests.
+   * @type {?String}
+   * @private
+   */
+  #authHeader = null;
+
+  /**
+   * Get the authentication header that can be used for requests.
+   * @protected
+   * @returns {?String} - The authentication header that can be used for requests.
+   */
+  _getAuthHeader() {
+    return this.#authHeader;
+  }
+
+  /**
+   * The username that was used to authenticate.
+   * @type {?String}
+   * @private
+   */
+  #username = null;
+
+  /**
+   * Get the username that was used to authenticate.
+   * @returns {?String} - The userrname that was used to authenticate.
+   */
+  getUsername() {
+    return this.#username;
+  }
+
+  /**
+   * The password that was used to authenticate.
+   * @type {?String}
+   * @private
+   */
+  #password = null;
+
+  /**
+   * Whether the object is authenticated or not.
+   * @returns {Boolean} - Whether the object is authenticated or not.
+   */
+  async getAuthenticated() {
+    if (this._getAuthHeader() === null) {
+      // We haven't even tried logging in, so we know we aren't authenticated.
+      return false;
+    } else {
+      // Make request to home page and see if we get redirected.
+      try {
+        const res = await axios.request({
+          url: '/',
+          baseURL: this.getBaseURL(),
+          method: 'get',
+          maxRedirects: 0,
+          validateStatus(status) {
+            return status >= 200 &amp;&amp; status &lt;= 302;
+          },
+          headers: {
+            cookie: this._getAuthHeader(),
+          },
+        });
+        if (res.status == 200) {
+          // It didn't redirect us, so we must be authenticated.
+          return true;
+        } else {
+          // It redirected us to the login page, so the auth header must be expired or incorrect.
+          // i.e. we are not authenticated.
+          return false;
+        }
+      } catch (e) {
+        throw e;
+      }
+    }
+  }
+
+  /**
+   * Construct a new authentication handler object.
+   * @param {String} url - The base URL of the school-specific Compass website.
+   */
+  constructor(url) {
+    validate(arguments, ['string']);
+    this.#baseURL = new URL(url).href;
+  }
+
+  /**
+   * Authenticate using the passed credentials.
+   * @param {String} username - The username of the user to authenticate as.
+   * @param {String} password - The plaintext password of the user to authenticate as.
+   * @returns {Boolean} - `true` on success. Throws an error on failure.
+   */
+  async authenticate(username, password) {
+    validate(arguments, ['string', 'string']);
+    try {
+      const res = await axios.request({
+        url: '/login.aspx?sessionstate=disabled',
+        baseURL: this.getBaseURL(),
+        method: 'post',
+        transformRequest(data) {
+          return (new URLSearchParams(data)).toString();
+        },
+        maxRedirects: 0,
+        data: {
+          '__EVENTTARGET': 'button1',
+          'username': username,
+          'password': password,
+        },
+        validateStatus(status) {
+          return status >= 200 &amp;&amp; status &lt;= 302;
+        },
+      });
+      if (res.headers &amp;&amp; res.headers['set-cookie'] &amp;&amp; res.headers['set-cookie'].filter((cookie) => cookie.startsWith('username=')).length > 0 &amp;&amp; res.status == 302) {
+        const cpssid = res.headers['set-cookie'].filter((cookie) => cookie.startsWith('cpssid_'));
+        if (cpssid.length > 0) {
+          const authHeader = cpssid[0].substring(0, cpssid[0].indexOf(';') != -1 ? cpssid[0].indexOf(';') : cpssid.length);
+          this.#authHeader = authHeader;
+          this.#username = username;
+          this.#password = password;
+          return true;
+        } else {
+          throw new CompassEduAuthError('Invalid credentials');
+        }
+      } else {
+        if (res.data) {
+          const dom = (new JSDOM(res.data)).window.document;
+          if (dom.getElementById('username-error')) {
+            switch (dom.getElementById('username-error').innerHTML) {
+              case 'Your account has been temporarily disabled due to a large number of login attempts. &lt;br>Please wait a moment and try again.':
+                throw new CompassEduAuthError('Too many login attempts');
+              case 'Sorry - your username and/or password was incorrect.':
+                throw new CompassEduAuthError('Invalid credentials');
+              default:
+                throw new CompassEduAuthError('An unknown error occurred');
+            }
+          } else {
+            throw new CompassEduAuthError('An unknown error occurred');
+          }
+        } else {
+          throw new CompassEduAuthError('An unknown error occurred');
+        }
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  /**
+   * Check if we are still authenticated. If not, fetch a new auth header.
+   * @protected
+   * @returns {Boolean|Error} - `true` on success and an error on failure.
+   */
+  async _checkAuth() {
+    let authenticated = false;
+    try {
+      authenticated = await this.getAuthenticated();
+    } catch (e) {
+      return e;
+    }
+    if (authenticated) {
+      return true;
+    } else {
+      try {
+        await this.authenticate(this.#username, this.#password);
+        return true;
+      } catch (e) {
+        return e;
+      }
+    }
+  }
+
+}
+
+module.exports.CompassEduAuth = CompassEduAuth;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

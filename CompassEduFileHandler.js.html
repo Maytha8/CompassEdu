@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CompassEdu Documentation Home</title>
+  <title>CompassEdu Documentation CompassEduFileHandler.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -102,62 +104,152 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>CompassEduFileHandler.js</h1>
                 </header>
                 
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><p><img src="https://img.shields.io/npm/v/@maytha8/compassedu?style=flat-square" alt="npm">
-<img src="https://img.shields.io/github/workflow/status/Maytha8/CompassEdu/Node.js%20CI?label=linux&amp;style=flat-square" alt="Linux build">
-<img src="https://img.shields.io/github/workflow/status/Maytha8/CompassEdu/Node.js%20CI%20MacOS?label=macos&amp;style=flat-square" alt="MacOS build">
-<img src="https://img.shields.io/github/workflow/status/Maytha8/CompassEdu/Node.js%20CI%20Windows?label=win&amp;style=flat-square" alt="Windows build"></p>
-<h2>Installation</h2>
-<p>This package is on the NPM registry, so you can use the following:</p>
-<pre class="prettyprint source lang-sh"><code>npm install @maytha8/compassedu
-</code></pre>
-<p>To install directly from <a href="https://github.com/Maytha8/CompassEdu">the GitHub repository</a>, you can use the following:</p>
-<pre class="prettyprint source lang-sh"><code>npm install https://github.com/Maytha8/CompassEdu
-</code></pre>
-<h2>Usage</h2>
-<pre class="prettyprint source lang-js"><code>const compassedu = require('compassedu');
-try {
-  const app = new compassedu('https://example.compass.education');
-  app.authenticate('myUsername', 'myPassword');
-  // your code here
-} catch (e) {
-  // error handling here
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+const axios = require('axios');
+const { validate, typedef } = require('bycontract');
+const { CompassEduAuth } = require('./CompassEduAuth');
+
+/** CompassEdu file asset handling class. */
+class CompassEduFileHandler {
+
+  /**
+   * The URL of the file.
+   * @private
+   * @type {String}
+   */
+  #url = null;
+
+  /**
+   * Get the URL of the file.
+   * @returns {String} - The URL of the file.
+   */
+  getURL() {
+    return this.#url;
+  }
+
+  /**
+   * The authentication object.
+   * @private
+   * @type {CompassEduAuth}
+   */
+  #auth = null;
+
+  /**
+   * The file ID on Compass' servers.
+   * @private
+   * @type {Number}
+   */
+  #id = null;
+
+  /**
+   * Get the file ID.
+   * @returns {Number} - The file ID on Compass' servers.
+   */
+  getId() {
+    return this.#id;
+  }
+
+  /**
+   * The file's data.
+   * @private
+   * @type {CompassEduFileHandler~Data}
+   */
+  #data;
+
+  /**
+   * Get the file's data.
+   * @returns {CompassEduFileHandler~Data} - The file's data.
+   */
+  getData() {
+    return this.#data;
+  }
+
+  /**
+   * @typedef  {Object}   CompassEduFileHandler~Data
+   * @property {Number}   id                - The ID of the asset.
+   * @property {Number}   fileAssetType     - The type of the file.
+   * @property {Boolean}  isImage           - Whether the asset is an image.
+   * @property {String}   name              - The display name of the file. (The link text)
+   * @property {String}   originalFileName  - The original name of the file that was uploaded. (The name of the file when downloaded)
+   */
+
+  /**
+   * Initiate a new file handler object.
+   * @param {String} url                      - The URL of the file.
+   * @param {CompassEduAuth} authObj          - The authentication object.
+   * @param {CompassEduFileHandler~Data} data - The file's data.
+   */
+  constructor(url, authObj, data) {
+    typedef('CompassEduFileHandler~Data', {
+      id: 'number',
+      fileAssetType: 'number',
+      isImage: 'boolean',
+      name: 'string',
+      originalFileName: 'string',
+    });
+    validate(arguments, ['string', CompassEduAuth, 'CompassEduFileHandler~Data']);
+
+    this.#url = new URL(url, authObj.getBaseURL()).href;
+    this.#auth = authObj;
+    this.#id = data.id;
+    this.#data = data;
+  }
+
+  /**
+   * @typedef CompassEduFileHandler~FileDownload
+   * @property {String} data - The data.
+   * @property {String} name - The name of the file.
+   * @property {String} type - The MIME type of the file.
+   */
+
+  /**
+   * Download the file.
+   * @returns {CompassEduFileHandler~FileDownload} - The file's data.
+   */
+  async download() {
+    this.#auth._checkAuth();
+    try {
+      const res = await axios.request({
+        url: this.getURL(),
+        method: 'get',
+        validateStatus(status) {
+          return status === 200;
+        },
+        headers: {
+          cookie: this.#auth._getAuthHeader(),
+        },
+        responseType: 'blob',
+      });
+      const data = res.data;
+      const name = res.headers['content-disposition'].split(';')[1].split('=')[1];
+      const type = res.headers['content-type'];
+      return {
+        data: data,
+        name: name,
+        type: type,
+      };
+    } catch (e) {
+      throw e;
+    }
+  }
+
 }
+
+module.exports.CompassEduFileHandler = CompassEduFileHandler;
 </code></pre>
-<h2>What next?</h2>
-<ul>
-<li>Follow the <a href="tutorial-gettingstarted.html">Getting Started</a> tutorial.</li>
-<li>See <a href="CompassEdu.html">the CompassEdu class</a> for more information on its members and methods.</li>
-</ul></article>
+        </article>
     </section>
-
-
 
 
 

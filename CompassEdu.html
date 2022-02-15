@@ -95,7 +95,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="CompassEdu.html">CompassEdu</a></li><li><a href="CompassEduLocation.html">CompassEduLocation</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="CompassEdu.html">CompassEdu</a></li><li><a href="CompassEduAuth.html">CompassEduAuth</a></li><li><a href="CompassEduAuthError.html">CompassEduAuthError</a></li><li><a href="CompassEduFileHandler.html">CompassEduFileHandler</a></li></ul></div>
                 
             </nav>
         </div>
@@ -252,7 +252,7 @@ Create a CompassEdu object.</p>
         <p class="tag-source">
             <a href="CompassEdu.js.html" class="button">View Source</a>
             <span>
-                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line8">line 8</a>
+                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line9">line 9</a>
             </span>
         </p>
     
@@ -308,20 +308,20 @@ Create a CompassEdu object.</p>
     <span class="method-parameter is-pulled-right">
         <label>Type:</label>
         
-<span class="param-type">boolean</span>
+<span class="param-type"><a href="CompassEduAuth.html">CompassEduAuth</a></span>
 
 
     </span>
 
-<h4 class="name" id="authenticated">
-    <a class="href-link" href="#authenticated">#</a>
+<h4 class="name" id="auth">
+    <a class="href-link" href="#auth">#</a>
     
         
             <span class='tag'>readonly</span>
         
     
     <span class="code-name">
-        authenticated
+        auth
     </span>
     
 </h4>
@@ -330,7 +330,7 @@ Create a CompassEdu object.</p>
 
 
 <div class="description">
-    <p>Whether the object is logged in and authorized.</p>
+    <p>The CompassEduAuth object.</p>
 </div>
 
 
@@ -372,169 +372,7 @@ Create a CompassEdu object.</p>
         <p class="tag-source">
             <a href="CompassEdu.js.html" class="button">View Source</a>
             <span>
-                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line36">line 36</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<span class="param-type">string</span>
-
-
-    </span>
-
-<h4 class="name" id="baseURL">
-    <a class="href-link" href="#baseURL">#</a>
-    
-        
-            <span class='tag'>readonly</span>
-        
-    
-    <span class="code-name">
-        baseURL
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    <p>The base URL used for requests.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="CompassEdu.js.html" class="button">View Source</a>
-            <span>
-                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line29">line 29</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<span class="param-type">string</span>
-
-
-    </span>
-
-<h4 class="name" id="username">
-    <a class="href-link" href="#username">#</a>
-    
-        
-            <span class='tag'>readonly</span>
-        
-    
-    <span class="code-name">
-        username
-    </span>
-    
-</h4>
-
-
-
-
-<div class="description">
-    <p>The username that the object is logged in as.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="CompassEdu.js.html" class="button">View Source</a>
-            <span>
-                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line43">line 43</a>
+                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line31">line 31</a>
             </span>
         </p>
     
@@ -559,183 +397,6 @@ Create a CompassEdu object.</p>
 
 
     
-    <h4 class="name" id="authenticate">
-        <a class="href-link" href="#authenticate">#</a>
-        
-            
-                <span class='tag'>async</span>
-            
-        
-        <span class="code-name">
-            
-                authenticate<span class="signature">(username, password)</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        <p>Authenticate using the supplied credentials.</p>
-    </div>
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-<div class="table-container">
-    <table class="params table">
-        <thead>
-        <tr>
-            
-            <th>Name</th>
-            
-
-            <th>Type</th>
-
-            
-
-            
-
-            <th class="last">Description</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>username</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">string</span>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"><p>The username of the user to login as.</p></td>
-</tr>
-
-
-        
-
-            
-<tr class="deep-level-0">
-  
-      <td class="name"><code>password</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">string</span>
-
-
-  
-  </td>
-
-  
-
-  
-
-  <td class="description last"><p>The plaintext password of the user to login as.</p></td>
-</tr>
-
-
-        
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="CompassEdu.js.html" class="button">View Source</a>
-            <span>
-                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line78">line 78</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-
-    
     <h4 class="name" id="getAllLocations">
         <a class="href-link" href="#getAllLocations">#</a>
         
@@ -745,7 +406,7 @@ Create a CompassEdu object.</p>
         
         <span class="code-name">
             
-                getAllLocations<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;<a href="CompassEduLocation.html">CompassEduLocation</a>>}</span>
+                getAllLocations<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;<a href="CompassEdu.html#~Location">CompassEdu~Location</a>>}</span>
             
         </span>
     </h4>
@@ -805,7 +466,7 @@ Create a CompassEdu object.</p>
         <p class="tag-source">
             <a href="CompassEdu.js.html" class="button">View Source</a>
             <span>
-                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line153">line 153</a>
+                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line59">line 59</a>
             </span>
         </p>
     
@@ -844,7 +505,131 @@ Create a CompassEdu object.</p>
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<span class="param-type">Array.&lt;<a href="CompassEduLocation.html">CompassEduLocation</a>></span>
+<span class="param-type">Array.&lt;<a href="CompassEdu.html#~Location">CompassEdu~Location</a>></span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="getBaseURL">
+        <a class="href-link" href="#getBaseURL">#</a>
+        
+        <span class="code-name">
+            
+                getBaseURL<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>The base URL used for requests.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="CompassEdu.js.html" class="button">View Source</a>
+            <span>
+                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line15">line 15</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><ul>
+<li>The base URL used for requests.</li>
+</ul></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">String</span>
 
 
     </div>
@@ -873,7 +658,7 @@ Create a CompassEdu object.</p>
         
         <span class="code-name">
             
-                getChronicleRatings<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;{description: String, enumValue: Int, group: (String|Null), name: String}>}</span>
+                getChronicleRatings<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;<a href="CompassEdu.html#~ChronicleRatings">CompassEdu~ChronicleRatings</a>>}</span>
             
         </span>
     </h4>
@@ -933,7 +718,7 @@ Create a CompassEdu object.</p>
         <p class="tag-source">
             <a href="CompassEdu.js.html" class="button">View Source</a>
             <span>
-                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line176">line 176</a>
+                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line100">line 100</a>
             </span>
         </p>
     
@@ -972,7 +757,323 @@ Create a CompassEdu object.</p>
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
-<span class="param-type">Array.&lt;{description: String, enumValue: Int, group: (String|Null), name: String}></span>
+<span class="param-type">Array.&lt;<a href="CompassEdu.html#~ChronicleRatings">CompassEdu~ChronicleRatings</a>></span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="getNewsFeedItemsByActivityId">
+        <a class="href-link" href="#getNewsFeedItemsByActivityId">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                getNewsFeedItemsByActivityId<span class="signature">(activityId, since<span class="signature-attributes">opt</span>, limit<span class="signature-attributes">opt</span>, start<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="CompassEdu.html#~NewsItem">CompassEdu~NewsItem</a>>}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Get newsfeed items</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+            <th>Default</th>
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>activityId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Number</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+      </td>
+  
+
+  <td class="description last"><p>The ID of the activity.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>since</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Number</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+          null
+      
+      </td>
+  
+
+  <td class="description last"><p>Which Newsfeed item should we start at. This trims the newsfeed items to the id specified. Useful for finding only latest newsfeed items.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>limit</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Number</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+          10
+      
+      </td>
+  
+
+  <td class="description last"><p>Limit to amount of items.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>start</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Number</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+          0
+      
+      </td>
+  
+
+  <td class="description last"><p>Which item to start at.</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="CompassEdu.js.html" class="button">View Source</a>
+            <span>
+                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line183">line 183</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><p>Returns an array of objects.</p></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Array.&lt;<a href="CompassEdu.html#~NewsItem">CompassEdu~NewsItem</a>></span>
 
 
     </div>
@@ -992,6 +1093,1642 @@ Create a CompassEdu object.</p>
         </div>
     
 
+    
+        <div class='vertical-section'>
+            <h1>Type Definitions</h1>
+            <div class="members">
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id="~ChronicleRatings">
+    <a class="href-link" href="#~ChronicleRatings">#</a>
+    
+    <span class="code-name">
+        ChronicleRatings
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+            <th>Attributes</th>
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>name</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"><p>The name of the rating.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>description</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"><p>A description of the rating.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>enumValue</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"><p>A number that represents the rating.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>group</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+            &lt;nullable><br>
+        
+        </td>
+    
+
+    
+
+    <td class="description last"><p>The group that the rating is part of.</p></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="CompassEdu.js.html" class="button">View Source</a>
+            <span>
+                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line88">line 88</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id="~Location">
+    <a class="href-link" href="#~Location">#</a>
+    
+    <span class="code-name">
+        Location
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>id</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Number</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The ID of the location.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>archived</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Boolean</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Whether the location is archived or not.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>building</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The name of the major building that the location is within.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>description</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>A brief description of the location.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>name</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The name of the location.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>longName</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The long name of the location that includes its name and the building it is within.</p></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="CompassEdu.js.html" class="button">View Source</a>
+            <span>
+                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line45">line 45</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id="~NewsItem">
+    <a class="href-link" href="#~NewsItem">#</a>
+    
+    <span class="code-name">
+        NewsItem
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>id</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Number</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>ID of the news feed item.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>title</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The title of the news feed item</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>content</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The content formatted in HTML</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>postDate</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Date</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>A date object of when the news feed item was posted.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>emailSentDate</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Date</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>A date object of when the news feed item email was sent.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>start</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Date</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>A date object of when the news feed item should begin appearing on the Compass dashboard.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>end</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Date</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>A date object of when the news feed item should stop appearing on the Compass dashboard.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>createdByAdmin</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Boolean</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Whether the news item was created by an admin.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>locked</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Boolean</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Whether the news item is locked.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>customGroupTargets</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="CompassEdu.html#~NewsItemCustomGroupTargets">CompassEdu~NewsItemCustomGroupTargets</a></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Custom group targets.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>groupTargets</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Array.&lt;<a href="CompassEdu.html#~NewsItemGroupTargets">CompassEdu~NewsItemGroupTargets</a>></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Array of group targets.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>sender</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="CompassEdu.html#~User">CompassEdu~User</a></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The user that posted the news feed item.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>attachments</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Array.&lt;CompassEdu~FileAsset></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>An array of files that were attached to the news feed item.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>priority</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Boolean</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Whether the news feed item is a priority.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>publicWebsite</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Boolean</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Whether the news feed item should be shown publicly.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>publishToLinkedSchools</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Boolean</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Whether the news feed item should be published to linked schools.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>publishToTalkingPoints</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Boolean</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Whether the news feed item should be published to talking points.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>showImagesFullScreen</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Boolean</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Whether images should be shown in full screen.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>startFinishString</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>A string showing the period of time the news feed item will appear for.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>talkingPointsTags</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Array.&lt;String></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Talking points tags.</p></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="CompassEdu.js.html" class="button">View Source</a>
+            <span>
+                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line126">line 126</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id="~NewsItemCustomGroupTargets">
+    <a class="href-link" href="#~NewsItemCustomGroupTargets">#</a>
+    
+    <span class="code-name">
+        NewsItemCustomGroupTargets
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>campusIds</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Array.&lt;Number></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>An array of target campuses' IDs.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>customGroupIds</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Array.&lt;Number></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>An array of target custom groups' IDs.</p></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="CompassEdu.js.html" class="button">View Source</a>
+            <span>
+                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line150">line 150</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id="~NewsItemGroupTargets">
+    <a class="href-link" href="#~NewsItemGroupTargets">#</a>
+    
+    <span class="code-name">
+        NewsItemGroupTargets
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>activityIds</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Array.&lt;Number></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>An array of target activities' IDs.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>baseRole</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Number</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>An integer that represents the base role that can see the notification.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>campusIds</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Array.&lt;Number></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>An array of target campuses' IDs.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>formGroups</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Array.&lt;Number></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>An array of target forms' IDs.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>future</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Boolean</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>houses</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Array.&lt;Number></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>An array of target houses' IDs.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>userIds</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Array.&lt;Number></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>An array of target users' IDs.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>yearLevels</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Array.&lt;Number></span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>An array of target year levels.</p></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="CompassEdu.js.html" class="button">View Source</a>
+            <span>
+                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line156">line 156</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id="~User">
+    <a class="href-link" href="#~User">#</a>
+    
+    <span class="code-name">
+        User
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+<div class="table-container">
+    <table class="props table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>userId</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">Number</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The ID of the user.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>userName</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The name of the user.</p></td>
+</tr>
+
+        
+            
+<tr class="deep-level-0">
+    
+        <td class="name"><code>userImageUrl</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">String</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>A URL of the user's icon image.</p></td>
+</tr>
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="CompassEdu.js.html" class="button">View Source</a>
+            <span>
+                <a href="CompassEdu.js.html">CompassEdu.js</a>, <a href="CompassEdu.js.html#line168">line 168</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
     
 
     

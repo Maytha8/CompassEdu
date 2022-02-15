@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CompassEdu Documentation CompassEduLocation.js</title>
+  <title>CompassEdu Documentation CompassEduAuthError.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -97,7 +97,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="CompassEdu.html">CompassEdu</a></li><li><a href="CompassEduLocation.html">CompassEduLocation</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="CompassEdu.html">CompassEdu</a></li><li><a href="CompassEduAuth.html">CompassEduAuth</a></li><li><a href="CompassEduAuthError.html">CompassEduAuthError</a></li><li><a href="CompassEduFileHandler.html">CompassEduFileHandler</a></li></ul></div>
                 
             </nav>
         </div>
@@ -105,7 +105,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>CompassEduLocation.js</h1>
+                    <h1>CompassEduAuthError.js</h1>
                 </header>
                 
 
@@ -116,106 +116,24 @@
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
 
-class CompassEduLocation {
+/**
+ * CompassEdu authentication error class.
+ * @extends Error
+ * */
+class CompassEduAuthError extends Error {
 
   /**
-   * The parent CompassEdu object
-   * @type {CompassEdu}
-   * @readonly
+   * Construct a new CompassEduAuthError instance.
+   * @param {String} message - The error message.
    */
-  parent = null;
-
-  /**
-   * Whether the location is archived
-   * @type {Boolean}
-   * @readonly
-   */
-  archived = false;
-
-  /**
-   * Name of the building
-   * @type {String}
-   * @readonly
-   */
-  building = "";
-
-  /**
-   * The ID of the room
-   * @type {Int}
-   * @readonly
-   */
-  id = null;
-
-  /**
-   * The long name of the room
-   * @type {String}
-   * @readonly
-   */
-  roomLongName = "";
-
-  /**
-   * The short name of the room
-   * @type {String}
-   * @readonly
-   */
-  roomName = "";
-
-  /**
-   * The constructor
-   * @param {CompassEdu} parentObj - The parent CompassEdu object
-   * @param {Object}     data      - The raw data from the request
-   */
-  constructor(parentObj, data) {
-    if (arguments.length &lt; 2) {
-      throw new TypeError("CompassEduLocation requires at least 2 arguments, but only "+arguments.length+" were passed");
-    }
-    if (
-      data.hasOwnProperty('archived') &amp;&amp;
-      data.hasOwnProperty('building') &amp;&amp;
-      data.hasOwnProperty('id') &amp;&amp;
-      data.hasOwnProperty('longName') &amp;&amp;
-      data.hasOwnProperty('n')
-    ) {
-      Object.defineProperties(this, {
-        parent: {
-          value: parentObj,
-          writable: false,
-          enumerable: true
-        },
-        archived: {
-          value: data.archived,
-          writable: false,
-          enumerable: true
-        },
-        building: {
-          value: data.building,
-          writable: false,
-          enumerable: true
-        },
-        id: {
-          value: data.id,
-          writable: false,
-          enumerable: true
-        },
-        roomLongName: {
-          value: data.longName,
-          writable: false,
-          enumerable: true
-        },
-        roomName: {
-          value: data.n,
-          writable: false,
-          enumerable: true
-        },
-      });
-    } else {
-      throw new TypeError('CompassEduLocation requires a data object with the properties: archived, building, id, n, and roomName.')
-    }
+  constructor(message) {
+    super(message);
+    this.name = this.constructor.name;
   }
 
 }
 
-module.exports.CompassEduLocation = CompassEduLocation;
+module.exports.CompassEduAuthError = CompassEduAuthError;
 </code></pre>
         </article>
     </section>
