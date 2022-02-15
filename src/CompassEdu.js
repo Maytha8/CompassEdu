@@ -1,53 +1,36 @@
 'use strict';
 
 const axios = require('axios');
-const { URLSearchParams } = require("url");
-const { CompassEduLocation } = require("./CompassEduLocation");
+const { validate } = require('bycontract');
+const { CompassEduAuth } = require('./CompassEduAuth');
+const { CompassEduFileHandler } = require('./CompassEduFileHandler');
 
 /** CompassEdu class. */
 class CompassEdu {
 
   /**
-   * The authentication key used for requests.
-   * @type {string}
-   * @private
-   */
-  #authKey = null;
-
-  /**
-   * The key of the authentication key used for requests.
-   * @type {string}
-   * @private
-   */
-  #authKeyKey = null;
-
-  /**
    * The base URL used for requests.
-   * @type {string}
-   * @readonly
+   * @returns {String} - The base URL used for requests.
    */
-  baseURL = null;
+  getBaseURL() {
+    return this.#auth.getBaseURL();
+  }
 
   /**
-   * Whether the object is logged in and authorized.
-   * @type {boolean}
-   * @readonly
-   */
-  authenticated = false;
-
-  /**
-   * The username that the object is logged in as.
-   * @type {string}
-   * @readonly
-   */
-  username = "";
-
-  /**
-   * The password that was used to authenticate the object with Compass Edu.
-   * @type {string}
+   * The CompassEduAuth object.
    * @private
+   * @type {CompassEduAuth}
    */
-  #authPassword = "";
+  #auth = null;
+
+  /**
+   * The CompassEduAuth object.
+   * @type {CompassEduAuth}
+   * @readonly
+   */
+  get auth() {
+    return this.#auth;
+  }
 
   /**
    * See {@tutorial gettingstarted}.
@@ -55,113 +38,46 @@ class CompassEdu {
    * @param {string} url - The base URL for the school-specific Compass website without the trailing slash.
    */
   constructor(url) {
-    if (arguments.length < 1) {
-      throw new TypeError("CompassEdu requires at least 1 argument, but only "+arguments.length+" were passed");
-    }
-    Object.defineProperty(this, 'baseURL', {
-      value: url,
-      writable: false,
-      enumerable: true
-    });
-    // Make properties readonly
-    Object.defineProperties(this, {
-      username: {writable:false,configurable:true},
-      authenticated: {writable:false,configurable:true}
-    })
+    validate(arguments, ['string']);
+    this.#auth = new CompassEduAuth(url);
   }
 
   /**
-   * Authenticate using the supplied credentials.
-   * @param {string} username - The username of the user to login as.
-   * @param {string} password - The plaintext password of the user to login as.
+   * @typedef  {Object}   CompassEdu~Location
+   * @property {Number}   id            - The ID of the location.
+   * @property {Boolean}  archived      - Whether the location is archived or not.
+   * @property {String}   building      - The name of the major building that the location is within.
+   * @property {String}   description   - A brief description of the location.
+   * @property {String}   name          - The name of the location.
+   * @property {String}   longName      - The long name of the location that includes its name and the building it is within.
    */
-  async authenticate(username, password) {
-    if (arguments.length < 2) {
-      throw new TypeError("CompassEdu.authenticate requires at least 2 arguments, but only "+arguments.length+" were passed");
-    }
-    Object.defineProperty(this, 'username', {
-      value: username,
-      writable: false,
-      enumerable: true,
-      configurable: true
-    });
-    this.#authPassword = password;
-    try {
-      const res = await axios.request({
-        url: "/login.aspx?sessionstate=disabled",
-        baseURL: this.baseURL,
-        method: 'post',
-        transformRequest: this.#getTransformRequestFn('urlencoded'),
-        maxRedirects: 0,
-        data: {
-          '__EVENTTARGET': 'button1',
-          username: this.username,
-          password: this.#authPassword
-        },
-        validateStatus(status) {return status >= 200 && status <= 302}
-      });
-      if (res.headers["set-cookie"].filter((cookie) => cookie.startsWith("username=")).length > 0 && res.status == 302) {
-        var cpssid = res.headers["set-cookie"].filter((cookie) => cookie.startsWith("cpssid_"));
-        if (cpssid.length > 0) {
-          const authKey = cpssid[0].substring(0, cpssid[0].indexOf(';') != -1 ? cpssid[0].indexOf(';') : cpssid.length).split("=");
-          this.#authKeyKey = authKey[0];
-          this.#authKey = authKey[1];
-          Object.defineProperty(this, 'authenticated', {value:true,writable:false})
-          return true;
-        } else {
-          const err = new Error('Invalid credentials');
-          err.name = "AuthError";
-          throw err;
-        }
-      } else {
-        const err = new Error('Invalid credentials');
-        err.name = "AuthError";
-        throw err;
-      }
-    } catch (e) {
-      const err = new Error('Invalid credentials');
-      err.name = "AuthError";
-      throw err;
-    }
-  }
-
-  /**
-   * Return a function that can encode the request into the desired encoding type
-   * @param  {String} type - The desired encoding type
-   * @return {Function}    - A function that can be used to encode the request into the desired encoding type
-   * @private
-   */
-  #getTransformRequestFn(type) {
-    return function(data) {
-      return (new URLSearchParams(data)).toString();
-    }
-    // if (type === 'urlencoded') {
-    //   return function(data) {
-    //     return (new URLSearchParams(data)).toString();
-    //   }
-    // } else if (type === 'json') {
-    //   return function(data) {
-    //     return JSON.stringify(data);
-    //   }
-    // }
-  }
 
   /**
    * Get all locations
-   * @return {Array.<CompassEduLocation>} - Array of locations.
+   * @return {Array.<CompassEdu~Location>} - Array of locations.
    */
   async getAllLocations() {
     try {
       const res = await axios.request({
-        url: "/Services/ReferenceDataCache.svc/GetAllLocations?sessionstate=readonly",
-        baseURL: this.baseURL,
+        url: '/Services/ReferenceDataCache.svc/GetAllLocations?sessionstate=readonly',
+        baseURL: this.getBaseURL(),
         method: 'get',
         maxRedirects: 0,
-        validateStatus(status) {return status === 200}
+        validateStatus(status) {
+          return status === 200;
+        },
       });
-      var locations = [];
+      const locations = [];
+      // Reorder the data so it makes more sense.
       res.data.d.forEach((item, index) => {
-        locations[index] = new CompassEduLocation(this, item);
+        locations[index] = {
+          id: item.id,
+          archived: item.archived,
+          building: item.building,
+          description: item.longName,
+          name: item.n,
+          longName: item.roomName,
+        };
       });
       return locations;
     } catch (e) {
@@ -170,23 +86,184 @@ class CompassEdu {
   }
 
   /**
+   * @typedef  {Object} CompassEdu~ChronicleRatings
+   * @property {String}       name        - The name of the rating.
+   * @property {String}       description - A description of the rating.
+   * @property {Number}       enumValue   - A number that represents the rating.
+   * @property {?Number}      group       - The group that the rating is part of.
+   */
+
+  /**
    * Get available chronicle ratings
-   * @return {Array.<{description: String, enumValue: Int, group: String|Null, name: String}>} - Array of objects. All the locations at the school.
+   * @return {Array.<CompassEdu~ChronicleRatings>} - Array of objects. All the locations at the school.
    */
   async getChronicleRatings() {
     try {
       const res = await axios.request({
-        url: "/Services/ReferenceDataCache.svc/GetChronicleRatings",
-        baseURL: this.baseURL,
+        url: '/Services/ReferenceDataCache.svc/GetChronicleRatings',
+        baseURL: this.getBaseURL(),
         method: 'get',
         maxRedirects: 0,
-        validateStatus(status) {return status === 200}
+        validateStatus(status) {
+          return status === 200;
+        },
       });
-      var data = res.data.d;
-      data.forEach((item, index) => {
-        delete data[index]['__type'];
+      const ratings = [];
+      res.data.d.forEach((item, index) => {
+        ratings[index] = {
+          name: item.name,
+          description: item.description,
+          enumValue: item.enumValue,
+          group: item.group,
+        };
       });
-      return data;
+      return ratings;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  /**
+   * @typedef {Object}    CompassEdu~NewsItem
+   * @property {Number}   id              - ID of the news feed item.
+   * @property {String}   title           - The title of the news feed item
+   * @property {String}   content         - The content formatted in HTML
+   * @property {Date}     postDate        - A date object of when the news feed item was posted.
+   * @property {Date}     emailSentDate   - A date object of when the news feed item email was sent.
+   * @property {Date}     start           - A date object of when the news feed item should begin appearing on the Compass dashboard.
+   * @property {Date}     end             - A date object of when the news feed item should stop appearing on the Compass dashboard.
+   * @property {Boolean}  createdByAdmin  - Whether the news item was created by an admin.
+   * @property {Boolean}  locked          - Whether the news item is locked.
+   * @property {CompassEdu~NewsItemCustomGroupTargets}    customGroupTargets  - Custom group targets.
+   * @property {Array.<CompassEdu~NewsItemGroupTargets>}  groupTargets        - Array of group targets.
+   * @property {CompassEdu~User}                          sender              - The user that posted the news feed item.
+   * @property {Array.<CompassEdu~FileAsset>}             attachments         - An array of files that were attached to the news feed item.
+   * @property {Boolean}  priority        - Whether the news feed item is a priority.
+   * @property {Boolean}  publicWebsite   - Whether the news feed item should be shown publicly.
+   * @property {Boolean}  publishToLinkedSchools  - Whether the news feed item should be published to linked schools.
+   * @property {Boolean}  publishToTalkingPoints  - Whether the news feed item should be published to talking points.
+   * @property {Boolean}  showImagesFullScreen    - Whether images should be shown in full screen.
+   * @property {String}   startFinishString       - A string showing the period of time the news feed item will appear for.
+   * @property {Array.<String>} talkingPointsTags - Talking points tags.
+   */
+
+  /**
+   * @typedef  {Object}      CompassEdu~NewsItemCustomGroupTargets
+   * @property {Array.<Number>} campusIds      - An array of target campuses' IDs.
+   * @property {Array.<Number>} customGroupIds - An array of target custom groups' IDs.
+   */
+
+  /**
+   * @typedef  {Object}       CompassEdu~NewsItemGroupTargets
+   * @property {Array.<Number>} activityIds     - An array of target activities' IDs.
+   * @property {Number}         baseRole        - An integer that represents the base role that can see the notification.
+   * @property {Array.<Number>} campusIds       - An array of target campuses' IDs.
+   * @property {Array.<Number>} formGroups      - An array of target forms' IDs.
+   * @property {Boolean}        future
+   * @property {Array.<Number>} houses          - An array of target houses' IDs.
+   * @property {Array.<Number>} userIds         - An array of target users' IDs.
+   * @property {Array.<Number>} yearLevels      - An array of target year levels.
+   */
+
+  /**
+   * @typedef  {Object}   CompassEdu~User
+   * @property {Number}   userId        - The ID of the user.
+   * @property {String}   userName      - The name of the user.
+   * @property {String}   userImageUrl  - A URL of the user's icon image.
+   */
+
+  /**
+   * Get newsfeed items
+   * @param {Number} activityId The ID of the activity.
+   * @param {Number} [since]    Which Newsfeed item should we start at. This trims the newsfeed items to the id specified. Useful for finding only latest newsfeed items.
+   * @param {Number} [limit=10] Limit to amount of items.
+   * @param {Number} [start=0]  Which item to start at.
+   * @return {Array.<CompassEdu~NewsItem>}  Returns an array of objects.
+   */
+  async getNewsFeedItemsByActivityId(activityId, since=null, limit=10, start=0) {
+    validate(arguments, [
+      'number',
+      'number=',
+      'number=',
+      'number=',
+    ]);
+    if (await this.#auth._checkAuth() !== true) throw new Error('Unable to obtain valid authorisation header');
+    try {
+      const res = await axios.request({
+        url: '/Services/NewsFeed.svc/GetActivityNewsFeedPaged?sessionstate=readonly',
+        baseURL: this.getBaseURL(),
+        method: 'post',
+        maxRedirects: 0,
+        validateStatus(status) {
+          return status === 200;
+        },
+        headers: {
+          cookie: this.#auth._getAuthHeader(),
+        },
+        data: {
+          activityId: activityId,
+          limit: limit,
+          start: start,
+        },
+      });
+      const data = (since !== null) ? res.data.d.data.slice(Object.keys(res.data.d.data).find((key) => res.data.d.data[key].NewsItemId === since)+1) : res.data.d.data;
+      const returnData = [];
+      data.forEach((item, i) => {
+        returnData[i] = {
+          id: item.NewsItemId,
+          title: item.Title,
+          content: item.Content1,
+          postDate: new Date(item.PostDateTime),
+          emailSentDate: new Date(item.EmailSentDate),
+          start: new Date(item.Start),
+          end: new Date(item.End),
+          createdByAdmin: item.CreatedByAdmin,
+          locked: item.Locked,
+          customGroupTargets: {
+            campusIds: item.NewsItemCustomGroupTargets.CampusIds,
+            customGroupIds: item.NewsItemCustomGroupTargets.CustomGroupIds,
+          },
+          groupTargets: (function(obj) {
+            const arr = [];
+            item.NewsItemGroupTargets.forEach((target, i) => {
+              arr[i] = {
+                activityIds: target.ActivityIds,
+                baseRole: target.BaseRole,
+                campusIds: target.CampusIds,
+                formGroups: target.FormGroups,
+                future: target.Future,
+                houses: target.Houses,
+                userIds: target.UserIds,
+                yearLevels: target.YearLevels,
+              };
+            });
+            return arr;
+          })(this),
+          sender: {
+            userId: item.UserId,
+            userName: item.UserName,
+            userImageUrl: new URL(item.UserImageUrl, this.getBaseURL()).href,
+          },
+          attachments: (function(obj) {
+            const arr = [];
+            item.Attachments.forEach((a, i) => {
+              arr[i] = new CompassEduFileHandler(
+                  new URL(a.UiLink, obj.getBaseURL()).href,
+                  obj.#auth,
+                  {
+                    id: a.AssetId,
+                    fileAssetType: a.FileAssetType,
+                    isImage: a.IsImage,
+                    name: a.Name,
+                    originalFileName: a.OriginalFileName,
+                  },
+              );
+            });
+            return arr;
+          })(this),
+        };
+      });
+      return returnData;
     } catch (e) {
       throw e;
     }

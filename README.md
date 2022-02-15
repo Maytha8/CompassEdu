@@ -31,14 +31,46 @@ npm install
 ```
 
 ## Usage
+
+**Promise syntax**
 ```js
 const compassedu = require('compassedu');
+const app = new compassedu('https://example.compass.education');
+
+app.auth.authenticate('myUsername', 'myPassword')
+    .then(function() {
+      // your code here
+    })
+    .catch(function(err) {
+      // your error handling here
+    });
+```
+
+**Async/Await syntax**
+```js
+const compassedu = require('compassedu');
+const app = new compassedu('https://example.compass.education');
+
+(async ()=>{
+  try {
+    await app.auth.authenticate('myUsername', 'myPassword');
+    // your code here
+  } catch (e) {
+    // your error handling here
+  }
+})();
+```
+
+**Top level await syntax (needs to be an ES module)**
+```js
+import * from compassedu;
+const app = new compassedu('https://example.compass.education');
+
 try {
-  const app = new compassedu('https://example.compass.education');
-  app.authenticate('myUsername', 'myPassword');
+  await app.auth.authenticate('myUsername', 'myPassword');
   // your code here
 } catch (e) {
-  // error handling here
+  // your error handling here
 }
 ```
 
@@ -46,4 +78,4 @@ The documentation and code reference can be found at [https://maytha8.github.io/
 
 ## What next?
 - Follow the [Getting Started](https://maytha8.github.io/CompassEdu/tutorial-gettingstarted.html) tutorial.
-- See [the CompassEdu class](https://maytha8.github.io/CompassEdu/CompassEdu.html) for more information on its members and methods.
+- See [the CompassEdu class](https://maytha8.github.io/CompassEdu/CompassEdu.html) for more information on its properties and methods.

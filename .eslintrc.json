@@ -1,46 +1,30 @@
 {
-	"extends": "eslint:recommended",
-	"env": {
-		"node": true,
-		"es2021": true
-	},
-	"rules": {
-		"arrow-spacing": ["warn", { "before": true, "after": true }],
-		"brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
-		"comma-dangle": ["error", "always-multiline"],
-		"comma-spacing": "error",
-		"comma-style": "error",
-		"curly": ["error", "multi-line", "consistent"],
-		"dot-location": ["error", "property"],
-		"handle-callback-err": "off",
-		"indent": ["error", 2],
-		"keyword-spacing": "error",
-		"max-nested-callbacks": ["error", { "max": 4 }],
-		"max-statements-per-line": ["error", { "max": 2 }],
-		"no-console": "off",
-		"no-empty-function": "error",
-		"no-floating-decimal": "error",
-		"no-inline-comments": "error",
-		"no-lonely-if": "error",
-		"no-multi-spaces": "error",
-		"no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1, "maxBOF": 0 }],
-		"no-shadow": ["error", { "allow": ["err", "resolve", "reject"] }],
-		"no-trailing-spaces": ["error"],
-		"no-var": "error",
-		"object-curly-spacing": ["error", "always"],
-		"prefer-const": "error",
-		"quotes": ["error", "single"],
-		"semi": ["error", "always"],
-		"space-before-blocks": "error",
-		"space-before-function-paren": ["error", {
-			"anonymous": "never",
-			"named": "never",
-			"asyncArrow": "always"
-		}],
-		"space-in-parens": "error",
-		"space-infix-ops": "error",
-		"space-unary-ops": "error",
-		"spaced-comment": "error",
-		"yoda": "error"
-	}
+    "env": {
+        "node": true,
+        "commonjs": true,
+        "es2022": true,
+        "mocha": true
+    },
+    "extends": [
+        "google"
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "rules": {
+        // No maximum length
+        "max-len": "off",
+        // Always have spacing in objects.
+        "object-curly-spacing": ["error", "always"],
+        // Warn when unused variables are set.
+        "no-unused-vars": "warn",
+        // Warn when blocks are not padded.
+        "padded-blocks": ["warn", { "classes": "always", "blocks": "never" }],
+        // Require a semicolon at the end of lines, except when inside a one-line block.
+        "semi": ["error", "always", { "omitLastInOneLineBlock": true }],
+        // Turn off jsdoc linting because it is deprecated as of ESLint v5.10.0.
+        "valid-jsdoc": "off",
+        // Allow use of 'arguments' within functions.
+        "prefer-rest-params": "off"
+    }
 }
