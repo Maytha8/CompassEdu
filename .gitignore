@@ -4,3 +4,4 @@ private/
 .nyc_output/
 coverage/
 .DS_Store
+*.code-workspace
